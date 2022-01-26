@@ -1,5 +1,10 @@
 <div class="container">
-  <button mat-raised-button color="primary" (click)="toggle()">{{isAllCards ? 'Hide inactive' : 'Show all'}}</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="isDisabled()"
+    (click)="toggle()">{{isAllCards ? 'Hide inactive' : 'Show all'}}
+  </button>
   <div class="cards">
     <app-card *ngFor="let user of users"
               [user]="user"

@@ -25,4 +25,8 @@ export class FirstPageComponent {
   toggle() {
     this.isAllCards = !this.isAllCards;
   }
+
+  isDisabled() {
+    return !this.users.some(user => !user.activated);
+  }
 }
