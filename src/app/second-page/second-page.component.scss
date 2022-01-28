@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-form-field {
+  width: 300px;
+}
+
+span {
+  margin-bottom: 20px;
+}
