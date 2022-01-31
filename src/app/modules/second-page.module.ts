@@ -1,20 +1,19 @@
 import {NgModule} from '@angular/core';
-import {SecondPageComponent} from './second-page.component';
+import {SecondPageShellComponent} from '../containers/second-page/second-page-shell.component';
 import {BrowserModule} from "@angular/platform-browser";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
-    SecondPageComponent,
+    SecondPageShellComponent,
   ],
   imports: [
     BrowserModule,
     MatInputModule,
     FormsModule
   ],
-  bootstrap: [SecondPageComponent],
-  exports: [SecondPageComponent]
+  exports: [SecondPageShellComponent]
 })
 
 export class SecondPageModule {

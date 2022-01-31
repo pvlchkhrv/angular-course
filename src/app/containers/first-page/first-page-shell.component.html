@@ -9,6 +9,7 @@
     <app-card *ngFor="let user of users"
               [user]="user"
               [hidden]="!isAllCards && !user.activated"
+              (isUserActivated)="user.activated = $event"
     ></app-card>
   </div>
 </div>
