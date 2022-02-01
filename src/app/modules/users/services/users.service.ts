@@ -1,11 +1,5 @@
 import {Injectable} from '@angular/core';
-
-export interface IUser {
-  name: string;
-  age: number;
-  activated: boolean;
-  imgUrl: string;
-}
+import {IUser} from '../models/IUser';
 
 @Injectable({
   providedIn: 'root'

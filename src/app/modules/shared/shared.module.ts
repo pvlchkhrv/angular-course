@@ -1,18 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {CardComponent} from '../../components/card/card.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
-
-
+import {UserItemComponent} from '../users/components/user-list/user-item/user-item.component';
 
 @NgModule({
-  declarations: [CardComponent],
+  declarations: [UserItemComponent],
   imports: [
     CommonModule,
     MatCardModule,
     MatButtonModule,
   ],
-  exports: [CardComponent, MatButtonModule]
+  exports: [UserItemComponent, MatButtonModule]
 })
 export class SharedModule { }
