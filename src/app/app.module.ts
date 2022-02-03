@@ -3,14 +3,14 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {FormsModule} from "@angular/forms";
-import {FirstPageModule} from "./modules/first-page.module";
-import {ToolbarComponent} from "./components/toolbar/toolbar.component";
-import {TabGroupComponent} from "./components/tab-group/tab-group.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {UsersModule} from "./modules/users/users.module";
+import {ToolbarComponent} from "./core/components/toolbar/toolbar.component";
+import {TabGroupComponent} from "./core/components/tab-group/tab-group.component";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatTabsModule} from "@angular/material/tabs";
-import {SecondPageModule} from "./modules/second-page.module";
+import {InputsModule} from "./modules/inputs/inputs.module";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 
@@ -18,15 +18,15 @@ import {MatButtonModule} from "@angular/material/button";
   declarations: [
     AppComponent,
     ToolbarComponent,
-    TabGroupComponent
+    TabGroupComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    FirstPageModule,
-    SecondPageModule,
+    UsersModule,
+    InputsModule,
     MatIconModule,
     MatToolbarModule,
     MatTabsModule,

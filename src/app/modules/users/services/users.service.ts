@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {IUser} from '../models/IUser';
+import {IUser} from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,24 +12,24 @@ export class UsersService {
 
   private users: IUser[] = [
     {
-      name: 'Bear',
+      firstName: 'Bear',
       age: 18,
       activated: false,
       imgUrl: '../../assets/images/2010-kodiak-bear-1.jpg'
     },
     {
-      name: 'Lynx',
+      firstName: 'Lynx',
       age: 21,
       activated: true,
       imgUrl: '../../assets/images/natura-2000-research-in-czech-republic-2.jpg'
     },
     {
-      name: 'Wolf',
+      firstName: 'Wolf',
       age: 8,
       activated: true,
       imgUrl: '../../assets/images/cf4f55c5e4802a1a4fedf5c93f3bc36b-800x.jpg'
     },
-    {name: 'Dog', age: 3, activated: true, imgUrl: '../../assets/images/shiba2.jpg'},
+    {firstName: 'Dog', age: 3, activated: true, imgUrl: '../../assets/images/shiba2.jpg'},
   ]
 
   getUsers() {
@@ -38,10 +38,7 @@ export class UsersService {
 
   addUser(user: IUser) {
     this.users.push(user);
-  }
-
-  deactivateUser(user: IUser) {
-    user.activated = !user.activated
+    console.log(this.users);
   }
 
 }

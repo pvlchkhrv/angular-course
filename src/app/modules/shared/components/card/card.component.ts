@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {IUser} from '../../../users/models/IUser';
+import {UserModel} from '../../../users/models/user.model';
 
 @Component({
   selector: 'app-card',
@@ -9,7 +9,7 @@ import {IUser} from '../../../users/models/IUser';
 })
 
 export class CardComponent implements OnInit{
-  @Input() user: IUser;
+  @Input() user: UserModel;
   @Output() toggle = new EventEmitter<boolean>();
   public isActivated: boolean;
 

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {IUser} from '../../../models/IUser';
+import {IUser} from '../../../models/user.model';
 
 @Component({
   selector: 'app-user-item',
@@ -16,16 +16,16 @@ export class UserItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  isAdult() {
+  public isAdult(): boolean {
     return this.user.age >= 18;
   }
 
-  toggleUserActivity() {
+  public toggleUserActivity(): void {
     if (this.isAdult()) this.user.activated = !this.user.activated;
     this.toggle.emit(this.user.activated);
   }
 
-  disable() {
+  public disable(): void {
     if (this.isAdult()) this.user.activated = false;
   }
 }

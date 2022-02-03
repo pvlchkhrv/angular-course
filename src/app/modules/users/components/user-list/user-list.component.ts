@@ -1,5 +1,5 @@
-import {Component, Input, OnInit, ViewChild, ViewChildren} from '@angular/core';
-import {IUser} from '../../models/IUser';
+import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {IUser} from '../../models/user.model';
 import {UserItemComponent} from './user-item/user-item.component';
 
 @Component({
@@ -9,29 +9,31 @@ import {UserItemComponent} from './user-item/user-item.component';
 })
 export class UserListComponent implements OnInit {
   @Input() users: IUser[];
-  @ViewChildren(UserItemComponent) cards: UserItemComponent[];
+  @ViewChildren(UserItemComponent) cards: QueryList<UserItemComponent>;
 
   public isAllCardsShown: boolean;
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
 
   }
 
-  public toggle() {
+  public toggle(): void {
     this.isAllCardsShown = !this.isAllCardsShown;
   }
 
-  public isDisabled() {
+  public isDisabled(): boolean {
     return !this.users.some(user => !user.activated);
   }
 
-  changeUserActivityStatus(user, status) {
+  public changeUserActivityStatus(user, status): void {
     user.activated = status;
   }
 
-  public toggleAllUsersActivity() {
-    for(let card of this.cards) {
+  public disableUsers(): void {
+    for (let card of this.cards) {
       card.disable();
     }
   }

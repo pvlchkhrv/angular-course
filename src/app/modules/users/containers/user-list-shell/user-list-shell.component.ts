@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, DoCheck, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {UsersService} from '../../services/users.service';
-import {IUser} from '../../models/IUser';
+import {IUser} from '../../models/user.model';
 import {UserItemComponent} from '../../components/user-list/user-item/user-item.component';
 import {UserListComponent} from '../../components/user-list/user-list.component';
 
@@ -10,9 +10,7 @@ import {UserListComponent} from '../../components/user-list/user-list.component'
   styleUrls: ['./user-list-shell.component.scss'],
   providers: [UsersService]
 })
-export class UserListShellComponent implements OnInit{
-  @ViewChild('userItem', {static: true})
-  private card: UserItemComponent;
+export class UserListShellComponent implements OnInit, OnChanges, DoCheck{
 
   public users: IUser[] = [];
 
@@ -21,5 +19,14 @@ export class UserListShellComponent implements OnInit{
 
   ngOnInit() {
     this.users = this.usersService.getUsers();
+  }
+
+  ngDoCheck() {
+    console.log('Do check')
+  }
+
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('onChanges')
   }
 }
