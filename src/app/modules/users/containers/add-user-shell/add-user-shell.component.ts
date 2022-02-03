@@ -14,7 +14,7 @@ export class AddUserShellComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onAddUser(user: IUser) {
+  public onAddUser(user: IUser) {
     this.userService.addUser(user);
   }
 }

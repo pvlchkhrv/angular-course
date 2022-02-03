@@ -6,5 +6,6 @@ export interface IUser {
   department?: string;
   sex?: string;
   activated: boolean;
-  imgUrl?: string;
+  imgSrc?: string;
+  file?: File
 }

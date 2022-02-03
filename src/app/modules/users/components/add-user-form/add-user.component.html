@@ -28,11 +28,12 @@
   <div class="radio-buttons">
     <label>Sex:</label>
     <mat-radio-group>
-<!--      <mat-radio-button formControlName="sex" value="male">Male</mat-radio-button>-->
-<!--      <mat-radio-button formControlName="sex" value="female">Female</mat-radio-button>-->
       <input  type="radio" formControlName="sex" value="male">Male
       <input type="radio" formControlName="sex" value="female">Female
     </mat-radio-group>
   </div>
+
+  <input type="file" (change)="onFileChange($event)">
+
   <button type="button" mat-raised-button color="primary" (click)="onAddClick()">Add</button>
 </form>
