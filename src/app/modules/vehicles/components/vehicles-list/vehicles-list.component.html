@@ -1,0 +1,16 @@
+<div class="content">
+  <div class="items">
+    <app-vehicles-item *ngFor="let v of vehicles"
+                       [vehicle]="v"
+                       (onAddToFavouritesClick)="onAddToFavourites($event)"
+                       #vehicleItem
+    ></app-vehicles-item>
+  </div>
+  <div class="favourites">
+    <h2>Favourites</h2>
+    <ul>
+      <li *ngFor="let f of favourites">{{f.name}}</li>
+    </ul>
+  </div>
+
+</div>

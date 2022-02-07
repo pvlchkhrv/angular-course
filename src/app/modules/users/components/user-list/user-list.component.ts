@@ -1,6 +1,7 @@
-import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
 import {IUser} from '../../models/user.model';
 import {UserItemComponent} from './user-item/user-item.component';
+import {ICard} from '../../../shared/models/card.model';
 
 @Component({
   selector: 'app-user-list',
@@ -9,9 +10,8 @@ import {UserItemComponent} from './user-item/user-item.component';
 })
 export class UserListComponent implements OnInit {
   @Input() users: IUser[];
-  @ViewChildren(UserItemComponent) cards: QueryList<UserItemComponent>;
-
-  public isAllCardsShown: boolean;
+  @Input() favourites: ICard[];
+  @Output() addFavourite = new EventEmitter<ICard>();
 
   constructor() {
   }
@@ -20,21 +20,7 @@ export class UserListComponent implements OnInit {
 
   }
 
-  public toggle(): void {
-    this.isAllCardsShown = !this.isAllCardsShown;
-  }
-
-  public isDisabled(): boolean {
-    return !this.users.some(user => !user.activated);
-  }
-
-  public changeUserActivityStatus(user, status): void {
-    user.activated = status;
-  }
-
-  public disableUsers(): void {
-    for (let card of this.cards) {
-      card.disable();
-    }
+  onAddToFavourites(card: ICard) {
+    this.addFavourite.emit(card);
   }
 }

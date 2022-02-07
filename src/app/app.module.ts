@@ -12,6 +12,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import {VehiclesModule} from './modules/vehicles/vehicles.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {MatButtonModule} from '@angular/material/button';
     FormsModule,
     BrowserAnimationsModule,
     UsersModule,
+    VehiclesModule,
     MatIconModule,
     MatToolbarModule,
     MatTabsModule,

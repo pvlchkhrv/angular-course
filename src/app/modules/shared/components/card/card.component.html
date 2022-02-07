@@ -1,17 +1,18 @@
 <mat-card class="example-card">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{user.name}}</mat-card-title>
-    <mat-card-subtitle>Animal</mat-card-subtitle>
+    <mat-card-title>{{item.title}}</mat-card-title>
+    <mat-card-subtitle>{{item.subtitle}}</mat-card-subtitle>
   </mat-card-header>
-  <img class="card-image" src="{{user.imgUrl}}" alt="Photo of a {{user.name}}">
+  <img class="card-image" src="{{item.imgSrc}}" alt="Photo of a card">
   <mat-card-content>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, dignissimos?
+      {{item.description}}
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button (click)="toggleActivity()">{{user.activated ? 'Hide' : 'Show'}}</button>
+    <button mat-icon-button color="warn" aria-label="Example icon-button with a heart icon" (click)="onAddToFavourites()">
+      <mat-icon>favorite</mat-icon>
+    </button>
   </mat-card-actions>
 </mat-card>
-f

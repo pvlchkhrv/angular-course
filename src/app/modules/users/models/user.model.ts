@@ -1,11 +1,8 @@
 export interface IUser {
-  firstName: string;
-  lastName?: string
+  name: string;
   age: number;
-  company?: string;
-  department?: string;
-  sex?: string;
-  activated: boolean;
-  imgSrc?: string;
-  file?: File
+  gender: string;
+  department: string;
+  company: string;
+  imgSrc: string;
 }

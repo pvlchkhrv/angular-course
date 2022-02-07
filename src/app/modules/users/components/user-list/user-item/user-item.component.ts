@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ICard} from '../../../../shared/models/card.model';
 import {IUser} from '../../../models/user.model';
 
 @Component({
@@ -7,8 +8,8 @@ import {IUser} from '../../../models/user.model';
   styleUrls: ['./user-item.component.scss']
 })
 export class UserItemComponent implements OnInit {
-  @Input() user: IUser;
-  @Output() toggle= new EventEmitter<boolean>()
+  @Input() user: ICard;
+  @Output() onAddToFavouritesClick = new EventEmitter<ICard>();
 
   constructor() {
   }
@@ -16,16 +17,7 @@ export class UserItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public isAdult(): boolean {
-    return this.user.age >= 18;
-  }
-
-  public toggleUserActivity(): void {
-    if (this.isAdult()) this.user.activated = !this.user.activated;
-    this.toggle.emit(this.user.activated);
-  }
-
-  public disable(): void {
-    if (this.isAdult()) this.user.activated = false;
+  public onClick() {
+    this.onAddToFavouritesClick.emit(this.user);
   }
 }

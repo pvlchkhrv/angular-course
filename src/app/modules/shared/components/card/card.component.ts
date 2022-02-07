@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {UserModel} from '../../../users/models/user.model';
+import {ICard} from '../../models/card.model';
 
 @Component({
   selector: 'app-card',
@@ -9,15 +9,13 @@ import {UserModel} from '../../../users/models/user.model';
 })
 
 export class CardComponent implements OnInit{
-  @Input() user: UserModel;
-  @Output() toggle = new EventEmitter<boolean>();
-  public isActivated: boolean;
+  @Input() item: ICard;
+  @Output() onClick = new EventEmitter();
 
   ngOnInit() {
-    this.isActivated = this.user.activated;
   }
 
-  toggleActivity() {
-    this.toggle.emit(!this.isActivated);
+  onAddToFavourites() {
+    this.onClick.emit();
   }
 }

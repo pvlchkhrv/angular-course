@@ -1,21 +1,15 @@
-<button
-  mat-raised-button
-  color="primary"
-  (click)="disableUsers()">Disable users
-</button>
-
-<button
-  mat-raised-button
-  color="primary"
-  [disabled]="isDisabled()"
-  (click)="toggle()">{{isAllCardsShown ? 'Hide inactive' : 'Show all'}}
-</button>
-
-<div class="items">
-  <app-user-item *ngFor="let user of users"
-                 [user]="user"
-                 [hidden]="!isAllCardsShown && !user.activated"
-                 (toggle)="changeUserActivityStatus(user, $event)"
-                 #userItem
-  ></app-user-item>
+<div class="content">
+  <div class="items">
+    <app-user-item *ngFor="let user of users"
+                   [user]="user"
+                   (onAddToFavouritesClick)="onAddToFavourites($event)"
+                   #userItem
+    ></app-user-item>
+  </div>
+  <div class="favourites">
+    <h2>Favourites</h2>
+    <ul>
+      <li *ngFor="let f of favourites">{{f.name}}</li>
+    </ul>
+  </div>
 </div>
