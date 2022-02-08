@@ -10,7 +10,8 @@ import {MatOptionModule} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import {ReactiveFormsModule} from '@angular/forms';
-import {UserItemComponent} from './components/user-list/user-item/user-item.component';
+import {UserItemComponent} from './components/user-item/user-item.component';
+import { AddUserFormComponent } from './components/add-user-form/add-user-form.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {UserItemComponent} from './components/user-list/user-item/user-item.comp
     UserItemComponent,
     AddUserComponent,
     AddUserShellComponent,
+    AddUserFormComponent,
   ],
   imports: [
     BrowserModule,

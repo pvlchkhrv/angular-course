@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ICard} from '../../../../shared/models/card.model';
+import {ICard} from '../../../shared/models/card.model';
 
 @Component({
   selector: 'app-user-item',

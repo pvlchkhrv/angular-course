@@ -1,7 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {IUser} from '../../models/user.model';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-user',
@@ -21,9 +20,9 @@ export class AddUserComponent implements OnInit   {
     age: new FormControl('', [Validators.required, Validators.min(10)]),
     company: new FormControl('', [Validators.required, Validators.minLength(3)]),
     department: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    sex: new FormControl(),
+    gender: new FormControl(),
     imgSrc: new FormControl(''),
-  })
+  });
 
   public onFileChange(event): void {
     const file = event.target.files[0];
@@ -36,7 +35,7 @@ export class AddUserComponent implements OnInit   {
     };
   }
 
-  public handleOnAddClick(): void {
+  public handleOnAddUserClick(): void {
     const user = this.addUserGroup.value;
     user.activated = true;
     this.onAddUserClick.emit(user);

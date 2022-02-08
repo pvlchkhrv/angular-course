@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {IUser} from '../models/user.model';
-import {ICard} from '../../shared/models/card.model';
-import {map, Observable, of} from "rxjs";
+import {Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -15,38 +14,47 @@ export class UsersService {
   public users: IUser[] = [
     {
       id: 1,
-      name: 'Bear',
+      firstName: 'Bear',
+      lastName: 'Bearoff',
       age: 18,
       imgSrc: '../../assets/images/users/2010-kodiak-bear-1.jpg',
       gender: 'male',
       company: 'Forest',
-      department: 'Predator'
+      department: 'Predator',
+      email: 'bear@gmail.com'
     },
     {
       id: 2,
-      name: 'Lynx',
+      firstName: 'Lynx',
+      lastName: 'Lynxoff',
       age: 21,
       imgSrc: '../../assets/images/users/natura-2000-research-in-czech-republic-2.jpg',
       gender: 'male',
       company: 'Forest',
-      department: 'Predator'
+      department: 'Predator',
+      email: 'lynx@gmail.com'
     },
     {
       id: 3,
-      name: 'Wolf',
+      firstName: 'Wolf',
+      lastName: 'Wolfoof',
       age: 8,
       imgSrc: '../../assets/images/users/cf4f55c5e4802a1a4fedf5c93f3bc36b-800x.jpg',
       gender: 'male',
       company: 'Forest',
-      department: 'Predator'
+      department: 'Predator',
+      email: 'wolf@gmail.com'
     },
     {
       id: 4,
-      name: 'Dog', age: 21,
+      firstName: 'Dog',
+      lastName: 'Dogoff',
+      age: 21,
       imgSrc: '../../assets/images/users/shiba2.jpg',
       gender: 'male',
       company: 'Forest',
-      department: 'Predator'
+      department: 'Predator',
+      email: 'dog@gmail.com'
     },
   ]
 
@@ -58,19 +66,4 @@ export class UsersService {
     this.users = [...this.users, user];
     return of(this.users);
   }
-
-  // public getUsersAsCards(): Observable<ICard[]> {
-  //   const users$ = this.getUsers();
-  //   return users$.pipe(map((users: IUser[]) => {
-  //     return users.map((u: IUser) => {
-  //       return {
-  //         id: u.id,
-  //         title: u.name,
-  //         subtitle: u.company,
-  //         imgSrc: u.imgSrc,
-  //         description: `This is ${u.name} from ${u.company}. He is ${u.gender}.His department is ${u.department}.`
-  //       }
-  //     });
-  //   }));
-  // }
 }

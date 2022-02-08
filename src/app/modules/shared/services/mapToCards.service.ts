@@ -21,10 +21,10 @@ export class MapToCardsService {
       return users.map((u: IUser) => {
         return {
           id: u.id,
-          title: u.name,
+          title: u.firstName,
           subtitle: u.company,
           imgSrc: u.imgSrc,
-          description: `This is ${u.name} from ${u.company}. He is ${u.gender}.His department is ${u.department}.`
+          description: `This is ${u.firstName} ${u.lastName} from ${u.company}. He is ${u.gender}.His department is ${u.department}.`
         }
       });
     }));
