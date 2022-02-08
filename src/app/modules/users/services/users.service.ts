@@ -59,18 +59,18 @@ export class UsersService {
     return of(this.users);
   }
 
-  public getUsersAsCards(): Observable<ICard[]> {
-    const users$ = this.getUsers();
-    return users$.pipe(map((users: IUser[]) => {
-      return users.map( (u: IUser) => {
-        return {
-          id: u.id,
-          title: u.name,
-          subtitle: u.company,
-          imgSrc: u.imgSrc,
-          description: `This is ${u.name} from ${u.company}. He is ${u.gender}.His department is ${u.department}.`
-        }
-      });
-    }));
-  }
+  // public getUsersAsCards(): Observable<ICard[]> {
+  //   const users$ = this.getUsers();
+  //   return users$.pipe(map((users: IUser[]) => {
+  //     return users.map((u: IUser) => {
+  //       return {
+  //         id: u.id,
+  //         title: u.name,
+  //         subtitle: u.company,
+  //         imgSrc: u.imgSrc,
+  //         description: `This is ${u.name} from ${u.company}. He is ${u.gender}.His department is ${u.department}.`
+  //       }
+  //     });
+  //   }));
+  // }
 }

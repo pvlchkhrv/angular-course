@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {IVehicle} from '../models/vehicle.model';
-import {ICard} from '../../shared/models/card.model';
+import {Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -38,19 +38,8 @@ export class VehicleService {
     }
   ]
 
-  public getVehicles(): IVehicle []{
-    return this.vehicles;
+  public getVehicles(): Observable<IVehicle[]>{
+    return of(this.vehicles);
   }
 
-  public getVehiclesMappedToCards(): ICard[]{
-    return this.vehicles.map(v => {
-      return {
-        id: v.id,
-        title: v.name,
-        subtitle: v.number,
-        imgSrc: v.imgSrc,
-        description: `This is ${v.name} of ${v.releaseYear}. It's registration number is ${v.number}. Color is ${v.color}`
-      }
-    });
-  }
 }
