@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
 import {IVehicle} from '../models/vehicle.model';
 import {ICard} from '../../shared/models/card.model';
 
@@ -14,22 +13,28 @@ export class VehicleService {
 
   public vehicles: IVehicle[] = [
     {
+      id: 1,
       name: 'VW',
       color: 'grey',
       releaseYear: 2012,
-      number: '0938-12'
+      number: '0938-12',
+      imgSrc: '../../assets/images/cars/img.jpg'
     },
     {
+      id: 2,
       name: 'BMW',
       color: 'black',
       releaseYear: 2021,
-      number: '0938-222'
+      number: '0938-222',
+      imgSrc: '../../assets/images/cars/img_1.jpg'
     },
     {
+      id: 3,
       name: 'Audi',
       color: 'white',
       releaseYear: 2012,
-      number: '1111-12'
+      number: '1111-12',
+      imgSrc: '../../assets/images/cars/img_2.jpg'
     }
   ]
 
@@ -40,9 +45,10 @@ export class VehicleService {
   public getVehiclesMappedToCards(): ICard[]{
     return this.vehicles.map(v => {
       return {
+        id: v.id,
         title: v.name,
         subtitle: v.number,
-        imgSrc: '',
+        imgSrc: v.imgSrc,
         description: `This is ${v.name} of ${v.releaseYear}. It's registration number is ${v.number}. Color is ${v.color}`
       }
     });

@@ -8,17 +8,16 @@ import {ICard} from '../../../shared/models/card.model';
   styleUrls: ['./vehicles-list.component.scss']
 })
 export class VehiclesListComponent implements OnInit {
-  @Input() vehicles: ICard[];
-  @Input() favourites: ICard[];
-  @Output() addFavourite = new EventEmitter<ICard>();
+  @Input() public vehicles: ICard[];
+  @Input() public favourites: ICard[];
+  @Output() private onAddToFavouritesClick = new EventEmitter<ICard>();
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  onAddToFavourites(card: ICard) {
-    this.addFavourite.emit(card);
+  public handleOnAddToFavouritesClick(card: ICard): void {
+    this.onAddToFavouritesClick.emit(card);
   }
-
 }

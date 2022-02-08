@@ -4,7 +4,7 @@ import { VehiclesListComponent } from './components/vehicles-list/vehicles-list.
 import { VehiclesItemComponent } from './components/vehicles-item/vehicles-item.component';
 import { VehiclesListShellComponent } from './containers/vehicles-list-shell/vehicles-list-shell.component';
 import {SharedModule} from '../shared/shared.module';
-import {FavouritesService} from '../../core/services/favourites.service';
+import {FavouritesService} from '../shared/services/favourites.service';
 
 @NgModule({
   declarations: [
@@ -16,6 +16,6 @@ import {FavouritesService} from '../../core/services/favourites.service';
     CommonModule,
     SharedModule
   ],
-  providers: [FavouritesService]
+  providers: []
 })
 export class VehiclesModule { }

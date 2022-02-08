@@ -1,7 +1,7 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {VehicleService} from '../../services/vehicles.service';
 import {ICard} from '../../../shared/models/card.model';
-import {FavouritesService} from '../../../../core/services/favourites.service';
+import {FavouritesService} from '../../../shared/services/favourites.service';
 
 @Component({
   selector: 'app-vehicles-list-shell',
@@ -9,20 +9,18 @@ import {FavouritesService} from '../../../../core/services/favourites.service';
   styleUrls: ['./vehicles-list-shell.component.scss'],
 })
 export class VehiclesListShellComponent implements OnInit {
-
+  private type: string = 'vehicles';
   public vehicles: ICard[] = [];
   public favourites: ICard[] = [];
 
   constructor(private vehicleService: VehicleService, private favouritesService: FavouritesService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.vehicles = this.vehicleService.getVehiclesMappedToCards();
-    this.favourites = this.favouritesService.getFavourites();
+    const favourites$ = this.favouritesService.getFavourites();
   }
 
-  addToFavourites(card: ICard): void {
-    this.favouritesService.addToFavourites(card);
-    console.log(this.favourites);
+  public addToFavourites(card: ICard): void {
+    this.favouritesService.addToFavourites(card, this.type);
   }
-
 }

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UsersService} from '../../services/users.service';
-import {IUser} from '../../models/user.model';
 import {ICard} from '../../../shared/models/card.model';
-import {FavouritesService} from '../../../../core/services/favourites.service';
+import {FavouritesService} from '../../../shared/services/favourites.service';
+import {IUser} from "../../models/user.model";
 
 @Component({
   selector: 'app-users',
@@ -10,20 +10,36 @@ import {FavouritesService} from '../../../../core/services/favourites.service';
   styleUrls: ['./user-list-shell.component.scss'],
 })
 export class UserListShellComponent implements OnInit {
-
-  public users: ICard[] = [];
+  public type: string = 'users';
+  public users: IUser[] = [];
+  public usersAsCards: ICard[] = [];
   public favourites: ICard[] = [];
 
   constructor(private usersService: UsersService, private favouritesService: FavouritesService) {
   }
 
-  ngOnInit() {
-    this.users = this.usersService.getUsersMappedToCards();
-    this.favourites = this.favouritesService.getFavourites();
+  public ngOnInit(): void {
+    const users$ = this.usersService.getUsers();
+    const usersAsCards$ = this.usersService.getUsersAsCards();
+
+    users$.subscribe((users: IUser[]) => {
+      this.users = users;
+    });
+
+    usersAsCards$.subscribe((usersAsCards: ICard[]) => {
+      this.usersAsCards = usersAsCards;
+    });
+
+    const favourites$ = this.favouritesService.getFavourites();
+    favourites$.subscribe((favourites: ICard[]) => {
+      this.favourites = favourites;
+    });
   }
 
-  addToFavourites(card: ICard): void {
-    this.favouritesService.addToFavourites(card);
-    console.log(this.favourites);
+  public addToFavourites(card: ICard): void {
+    console.log('Click to favs')
+    this.favouritesService.addToFavourites(card, this.type);
+    this.favouritesService.getFavourites().subscribe(favourites => this.favourites = favourites);
+    console.log(this.favourites)
   }
 }

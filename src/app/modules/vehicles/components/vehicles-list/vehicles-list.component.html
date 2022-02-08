@@ -2,7 +2,7 @@
   <div class="items">
     <app-vehicles-item *ngFor="let v of vehicles"
                        [vehicle]="v"
-                       (onAddToFavouritesClick)="onAddToFavourites($event)"
+                       (onAddToFavouritesClick)="handleOnAddToFavouritesClick($event)"
                        #vehicleItem
     ></app-vehicles-item>
   </div>

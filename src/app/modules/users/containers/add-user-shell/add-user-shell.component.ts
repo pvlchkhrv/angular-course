@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UsersService} from '../../services/users.service';
 import {IUser} from '../../models/user.model';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-user-shell',
@@ -9,12 +10,13 @@ import {IUser} from '../../models/user.model';
 })
 export class AddUserShellComponent implements OnInit {
 
-  constructor(private userService: UsersService) { }
+  constructor(private userService: UsersService, private router: Router) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  public onAddUser(user: IUser) {
+  public onAddUser(user: IUser): void {
     this.userService.addUser(user);
+    this.router.navigate(['/users']);
   }
 }

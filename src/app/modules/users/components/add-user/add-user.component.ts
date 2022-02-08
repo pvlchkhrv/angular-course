@@ -9,8 +9,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./add-user.component.scss']
 })
 export class AddUserComponent implements OnInit   {
-  @Output() clickAddUser = new EventEmitter<IUser>();
-  constructor(private router: Router) { }
+  @Output() onAddUserClick = new EventEmitter<IUser>();
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -36,10 +36,9 @@ export class AddUserComponent implements OnInit   {
     };
   }
 
-  public onAddClick(): void {
+  public handleOnAddClick(): void {
     const user = this.addUserGroup.value;
     user.activated = true;
-    this.clickAddUser.emit(user);
-    this.router.navigate(['/users']);
+    this.onAddUserClick.emit(user);
   }
 }

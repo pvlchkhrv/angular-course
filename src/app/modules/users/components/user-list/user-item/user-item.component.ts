@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ICard} from '../../../../shared/models/card.model';
-import {IUser} from '../../../models/user.model';
 
 @Component({
   selector: 'app-user-item',
@@ -8,8 +7,8 @@ import {IUser} from '../../../models/user.model';
   styleUrls: ['./user-item.component.scss']
 })
 export class UserItemComponent implements OnInit {
-  @Input() user: ICard;
-  @Output() onAddToFavouritesClick = new EventEmitter<ICard>();
+  @Input() public userAsCard: ICard;
+  @Output() private onAddToFavouritesClick = new EventEmitter<ICard>();
 
   constructor() {
   }
@@ -17,7 +16,7 @@ export class UserItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public onClick() {
-    this.onAddToFavouritesClick.emit(this.user);
+  public handleOnAddToFavouritesClick(): void {
+    this.onAddToFavouritesClick.emit(this.userAsCard);
   }
 }

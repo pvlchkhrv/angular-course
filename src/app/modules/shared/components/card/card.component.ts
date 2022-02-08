@@ -9,13 +9,13 @@ import {ICard} from '../../models/card.model';
 })
 
 export class CardComponent implements OnInit{
-  @Input() item: ICard;
-  @Output() onClick = new EventEmitter();
+  @Input() public item: ICard;
+  @Output() private onAddToFavouritesClick = new EventEmitter();
 
-  ngOnInit() {
+  public ngOnInit(): void {
   }
 
-  onAddToFavourites() {
-    this.onClick.emit();
+  public handleAddToFavouritesClick(): void {
+    this.onAddToFavouritesClick.emit();
   }
 }

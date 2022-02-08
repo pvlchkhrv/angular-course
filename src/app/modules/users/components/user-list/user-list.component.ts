@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IUser} from '../../models/user.model';
-import {UserItemComponent} from './user-item/user-item.component';
 import {ICard} from '../../../shared/models/card.model';
 
 @Component({
@@ -9,18 +8,19 @@ import {ICard} from '../../../shared/models/card.model';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  @Input() users: IUser[];
-  @Input() favourites: ICard[];
-  @Output() addFavourite = new EventEmitter<ICard>();
+  @Input() public usersAsCards: ICard[];
+  @Input() public favourites: ICard[];
+  @Output() private onAddToFavouritesClick = new EventEmitter<ICard>();
 
   constructor() {
-  }
-
-  ngOnInit(): void {
 
   }
 
-  onAddToFavourites(card: ICard) {
-    this.addFavourite.emit(card);
+  public ngOnInit(): void {
+
+  }
+
+  public handleOnAddToFavouritesClick(card: ICard): void {
+    this.onAddToFavouritesClick.emit(card);
   }
 }

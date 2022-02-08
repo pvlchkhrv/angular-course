@@ -1,6 +1,6 @@
 <div class="container">
-  <app-user-list [users]="users"
-                 [favourites]="favourites"
-                 (addFavourite)="addToFavourites($event)"
+  <app-user-list [usersAsCards]="usersAsCards"
+                 [favourites]="favourites[type]"
+                 (onAddToFavouritesClick)="addToFavourites($event)"
   ></app-user-list>
 </div>

@@ -7,16 +7,15 @@ import {ICard} from '../../../shared/models/card.model';
   styleUrls: ['./vehicles-item.component.scss']
 })
 export class VehiclesItemComponent implements OnInit {
-  @Input() vehicle: ICard;
-  @Output() onAddToFavouritesClick = new EventEmitter<ICard>();
+  @Input() public vehicle: ICard;
+  @Output() private onAddToFavouritesClick = new EventEmitter<ICard>();
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  public onClick() {
+  public handleOnAddToFavouritesClick(): void {
     this.onAddToFavouritesClick.emit(this.vehicle);
   }
-
 }
