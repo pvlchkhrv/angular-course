@@ -1,5 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {IVehicle} from '../../models/vehicle.model';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ICard} from '../../../shared/models/card.model';
 
 @Component({

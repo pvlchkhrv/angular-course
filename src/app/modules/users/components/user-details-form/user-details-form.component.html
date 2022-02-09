@@ -1,0 +1,50 @@
+<form [formGroup]="userDetailsFormGroup">
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email">
+  </mat-form-field>
+  <span class="error" *ngIf="isControlInvalid('email') && getControl('email').errors['invalidEmail']">Email should be of type 'email@gmail.com'</span>
+  <span class="error" *ngIf="isControlInvalid('email') && getControl('email').errors['isEmailExist']">Already exists</span>
+
+  <mat-form-field appearance="fill">
+    <mat-label>First name</mat-label>
+    <input matInput formControlName="firstName">
+  </mat-form-field>
+  <span class="error" *ngIf="isControlInvalid('firstName')">Name is required</span>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Last Name</mat-label>
+    <input matInput formControlName="lastName">
+  </mat-form-field>
+  <span class="error" *ngIf="isControlInvalid('lastName')">Last name is required</span>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Age</mat-label>
+    <input matInput type="number" formControlName="age">
+  </mat-form-field>
+  <span class="error" *ngIf="isControlInvalid('age')">Age should be more than 15</span>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Company</mat-label>
+    <input matInput type="text" formControlName="company">
+  </mat-form-field>
+  <span class="error" *ngIf="isControlInvalid('company')">Should be max 35 characters</span>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Department</mat-label>
+    <input matInput type="text" formControlName="department">
+  </mat-form-field>
+  <span class="error" *ngIf="isControlInvalid('department')">Should be min 6 characters</span>
+
+  <div class="radio-buttons">
+    <label>Sex:</label>
+    <mat-radio-group>
+      <input type="radio" formControlName="gender" value="male">Male
+      <input type="radio" formControlName="gender" value="female">Female
+    </mat-radio-group>
+  </div>
+  <span class="error" *ngIf="isControlInvalid('gender')">Gender is required</span>
+
+  <input type="file" (change)="onFileChange($event)">
+
+</form>

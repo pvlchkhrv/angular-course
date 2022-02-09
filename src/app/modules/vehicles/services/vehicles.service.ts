@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {IVehicle} from '../models/vehicle.model';
-import {Observable, of} from "rxjs";
+import {Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +38,7 @@ export class VehicleService {
     }
   ]
 
-  public getVehicles(): Observable<IVehicle[]>{
+  public getVehicles(): Observable<IVehicle[]> {
     return of(this.vehicles);
   }
 

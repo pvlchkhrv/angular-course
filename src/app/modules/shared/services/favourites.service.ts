@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ICard} from '../models/card.model';
-import {Observable, of} from "rxjs";
+import {Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class FavouritesService {
   constructor() {
   }
 
-  public addToFavourites(card: ICard, type: string) {
+  public addToFavourites(card: ICard, type: string): void {
     if (!this.favourites[type]) {
       this.favourites[type] = [card];
     } else {

@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {UserListShellComponent} from './containers/user-list-shell/user-list-shell.component';
-import {BrowserModule} from "@angular/platform-browser";
+import {BrowserModule} from '@angular/platform-browser';
 import {SharedModule} from '../shared/shared.module';
 import {UserListComponent} from './components/user-list/user-list.component';
 import {AddUserComponent} from './components/add-user/add-user.component';
@@ -11,7 +11,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import {ReactiveFormsModule} from '@angular/forms';
 import {UserItemComponent} from './components/user-item/user-item.component';
-import { AddUserFormComponent } from './components/add-user-form/add-user-form.component';
+import { UserDetailsFormComponent } from './components/user-details-form/user-details-form.component';
+import {FormValidationService} from "./services/form-validation.service";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { AddUserFormComponent } from './components/add-user-form/add-user-form.c
     UserItemComponent,
     AddUserComponent,
     AddUserShellComponent,
-    AddUserFormComponent,
+    UserDetailsFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +32,7 @@ import { AddUserFormComponent } from './components/add-user-form/add-user-form.c
     MatRadioModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [FormValidationService],
   exports: [UserListShellComponent]
 })
 

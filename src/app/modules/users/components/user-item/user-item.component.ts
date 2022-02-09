@@ -13,7 +13,7 @@ export class UserItemComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
   public handleOnAddToFavouritesClick(): void {

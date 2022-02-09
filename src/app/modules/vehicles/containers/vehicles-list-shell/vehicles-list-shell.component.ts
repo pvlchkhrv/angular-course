@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {VehicleService} from '../../services/vehicles.service';
 import {ICard} from '../../../shared/models/card.model';
 import {FavouritesService} from '../../../shared/services/favourites.service';
-import {MapToCardsService} from "../../../shared/services/mapToCards.service";
-import {IVehicle} from "../../models/vehicle.model";
+import {MapToCardsService} from '../../../shared/services/mapToCards.service';
+import {IVehicle} from '../../models/vehicle.model';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-vehicles-list-shell',
@@ -23,17 +24,17 @@ export class VehiclesListShellComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    const vehicles$ = this.vehicleService.getVehicles();
+    const vehicles$: Observable<IVehicle[]> = this.vehicleService.getVehicles();
     vehicles$.subscribe((vehicles: IVehicle[]) => {
       this.vehicles = vehicles;
     });
 
-    const vehiclesAsCards$ = this.mapToCardsService.mapVehiclesToCards();
+    const vehiclesAsCards$: Observable<ICard[]> = this.mapToCardsService.mapVehiclesToCards();
     vehiclesAsCards$.subscribe((vehiclesAsCards: ICard[]) => {
       this.vehiclesAsCards = vehiclesAsCards;
     })
 
-    const favourites$ = this.favouritesService.getFavourites();
+    const favourites$: Observable<ICard[]> = this.favouritesService.getFavourites();
     favourites$.subscribe((favourites: ICard[]) => {
       this.favourites = favourites;
     });

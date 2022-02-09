@@ -1,0 +1,24 @@
+mat-form-field {
+  width: 350px;
+}
+
+.error {
+  color: red;
+  margin-bottom: 15px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  .radio-buttons {
+    margin-bottom: 20px;
+
+    .mat-radio-group {
+      width: 70px;
+      margin-left: 10px;
+    }
+  }
+}

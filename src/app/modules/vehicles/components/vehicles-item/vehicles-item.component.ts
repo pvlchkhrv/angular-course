@@ -10,7 +10,8 @@ export class VehiclesItemComponent implements OnInit {
   @Input() public vehicle: ICard;
   @Output() private onAddToFavouritesClick = new EventEmitter<ICard>();
 
-  constructor() { }
+  constructor() {
+  }
 
   public ngOnInit(): void {
   }

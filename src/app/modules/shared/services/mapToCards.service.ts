@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {ICard} from '../models/card.model';
-import {UsersService} from "../../users/services/users.service";
-import {map, Observable} from "rxjs";
-import {IUser} from "../../users/models/user.model";
-import {VehicleService} from "../../vehicles/services/vehicles.service";
-import {IVehicle} from "../../vehicles/models/vehicle.model";
+import {UsersService} from '../../users/services/users.service';
+import {map, Observable} from 'rxjs';
+import {IUser} from '../../users/models/user.model';
+import {VehicleService} from '../../vehicles/services/vehicles.service';
+import {IVehicle} from '../../vehicles/models/vehicle.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class MapToCardsService {
   constructor(private userService: UsersService, private vehicleService: VehicleService) {
   }
 
-  mapUsersToCards(): Observable<ICard[]> {
+  public mapUsersToCards(): Observable<ICard[]> {
     const users$ = this.userService.getUsers();
     return users$.pipe(map((users: IUser[]) => {
       return users.map((u: IUser) => {
@@ -30,7 +30,7 @@ export class MapToCardsService {
     }));
   }
 
-  mapVehiclesToCards(): Observable<ICard[]> {
+  public mapVehiclesToCards(): Observable<ICard[]> {
     const vehicles$ = this.vehicleService.getVehicles();
     return vehicles$.pipe(map((vehicles: IVehicle[]) => {
       return vehicles.map((v: IVehicle) => {

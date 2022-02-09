@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {IUser} from '../../models/user.model';
 import {ICard} from '../../../shared/models/card.model';
 
 @Component({
