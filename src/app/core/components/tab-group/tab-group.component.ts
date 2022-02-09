@@ -8,17 +8,17 @@ import {Router} from '@angular/router';
   styleUrls: ['./tab-group.component.scss']
 })
 export class TabGroupComponent implements OnInit {
-  public links = ['Users', 'Add User', 'Vehicles'];
+  public links: string[] = ['Users', 'Add User', 'Vehicles'];
   public activeLink: string;
   public background: ThemePalette = undefined;
 
   constructor(private router: Router) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  public onLinkClick(link: string) {
+  public onLinkClick(link: string): void {
     switch (link) {
       case this.links[0]:
         this.router.navigate(['/users']);

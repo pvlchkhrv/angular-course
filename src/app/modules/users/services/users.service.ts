@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {IUser} from '../models/user.model';
-import {ICard} from '../../shared/models/card.model';
-import {map, Observable, of} from "rxjs";
+import {Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +47,7 @@ export class UsersService {
       company: 'Forest',
       department: 'Predator'
     },
-  ]
+  ];
 
   public getUsers(): Observable<IUser[]> {
     return of(this.users);
@@ -58,19 +57,4 @@ export class UsersService {
     this.users = [...this.users, user];
     return of(this.users);
   }
-
-  // public getUsersAsCards(): Observable<ICard[]> {
-  //   const users$ = this.getUsers();
-  //   return users$.pipe(map((users: IUser[]) => {
-  //     return users.map((u: IUser) => {
-  //       return {
-  //         id: u.id,
-  //         title: u.name,
-  //         subtitle: u.company,
-  //         imgSrc: u.imgSrc,
-  //         description: `This is ${u.name} from ${u.company}. He is ${u.gender}.His department is ${u.department}.`
-  //       }
-  //     });
-  //   }));
-  // }
 }

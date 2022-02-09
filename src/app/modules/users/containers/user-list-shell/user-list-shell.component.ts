@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {UsersService} from '../../services/users.service';
 import {ICard} from '../../../shared/models/card.model';
 import {FavouritesService} from '../../../shared/services/favourites.service';
-import {IUser} from "../../models/user.model";
-import {MapToCardsService} from "../../../shared/services/mapToCards.service";
+import {IUser} from '../../models/user.model';
+import {MapToCardsService} from '../../../shared/services/mapToCards.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -23,17 +24,17 @@ export class UserListShellComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    const users$ = this.usersService.getUsers();
+    const users$: Observable<IUser[]> = this.usersService.getUsers();
     users$.subscribe((users: IUser[]) => {
       this.users = users;
     });
 
-    const usersAsCards$ = this.mapToCardsService.mapUsersToCards();
+    const usersAsCards$: Observable<ICard[]> = this.mapToCardsService.mapUsersToCards();
     usersAsCards$.subscribe((usersAsCards: ICard[]) => {
       this.usersAsCards = usersAsCards;
     });
 
-    const favourites$ = this.favouritesService.getFavourites();
+    const favourites$: Observable<ICard[]> = this.favouritesService.getFavourites();
     favourites$.subscribe((favourites: ICard[]) => {
       this.favourites = favourites;
     });
