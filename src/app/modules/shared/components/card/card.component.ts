@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ICard} from '../../models/card.model';
+import {FavouritesService} from "../../services/favourites.service";
 
 @Component({
   selector: 'app-card',
@@ -9,13 +10,15 @@ import {ICard} from '../../models/card.model';
 })
 
 export class CardComponent implements OnInit{
-  @Input() public item: ICard;
+  @Input() public card: ICard;
   @Output() private onAddToFavouritesClick = new EventEmitter();
+
+  constructor(private favouriteService: FavouritesService) {}
 
   public ngOnInit(): void {
   }
 
   public handleAddToFavouritesClick(): void {
-    this.onAddToFavouritesClick.emit();
+    this.favouriteService.favouriteAdded.emit(this.card);
   }
 }

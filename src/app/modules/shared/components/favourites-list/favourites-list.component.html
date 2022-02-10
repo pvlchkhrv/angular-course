@@ -1,0 +1,8 @@
+<div class="favourites">
+  <h2>Favourites</h2>
+  <ul>
+    <li *ngFor="let f of favourites">{{f.title}}
+      <button mat-button color="warn" (click)="handleRemoveFromFavourites(f.id)">-</button>
+    </li>
+  </ul>
+</div>
