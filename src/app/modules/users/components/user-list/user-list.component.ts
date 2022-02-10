@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ICard} from '../../../shared/models/card.model';
 
 @Component({
@@ -6,10 +6,11 @@ import {ICard} from '../../../shared/models/card.model';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnChanges {
   @Input() public usersAsCards: ICard[];
   @Input() public favourites: ICard[];
   @Output() private onAddToFavouritesClick = new EventEmitter<ICard>();
+  @Output() private onRemoveFromFavouritesClick = new EventEmitter<number>();
 
   constructor() {
 
@@ -19,7 +20,14 @@ export class UserListComponent implements OnInit {
 
   }
 
+  public ngOnChanges(changes: SimpleChanges) {
+  }
+
   public handleOnAddToFavouritesClick(card: ICard): void {
     this.onAddToFavouritesClick.emit(card);
+  }
+
+  public handleOnRemoveFromFavouritesClick(cardId: number): void {
+    this.onRemoveFromFavouritesClick.emit(cardId);
   }
 }

@@ -19,6 +19,16 @@ export class FavouritesService {
     }
   }
 
+  public removeFromFavourites(cardId: number, type: string) {
+    this.getFavourites().subscribe(favourites => {
+      console.log('before', this.favourites)
+      if (favourites[type]) {
+        this.favourites = favourites[type].filter(fav => fav.id !== cardId);
+      }
+      console.log('after', this.favourites)
+    });
+  }
+
   public getFavourites(): Observable<ICard[]> {
     return of(this.favourites);
   }

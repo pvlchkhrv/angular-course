@@ -2,5 +2,6 @@
   <app-user-list [usersAsCards]="usersAsCards"
                  [favourites]="favourites[type]"
                  (onAddToFavouritesClick)="addToFavourites($event)"
+                 (onRemoveFromFavouritesClick)="removeFromFavourites($event)"
   ></app-user-list>
 </div>

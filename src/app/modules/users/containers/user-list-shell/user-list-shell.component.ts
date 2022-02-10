@@ -43,4 +43,8 @@ export class UserListShellComponent implements OnInit {
   public addToFavourites(card: ICard): void {
     this.favouritesService.addToFavourites(card, this.type);
   }
+
+  public removeFromFavourites(cardId: number) {
+    this.favouritesService.removeFromFavourites(cardId, this.type);
+  }
 }
