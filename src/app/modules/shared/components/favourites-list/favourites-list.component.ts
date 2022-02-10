@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ICard} from '../../models/card.model';
-import {FavouritesService} from "../../services/favourites.service";
+import {FavouritesService} from '../../services/favourites.service';
 
 @Component({
   selector: 'app-favourites',
@@ -17,6 +17,6 @@ export class FavouritesListComponent implements OnInit {
   }
 
   handleRemoveFromFavourites(cardId) {
-    this.favouriteService.favouriteRemoved.emit(cardId)
+    this.favouriteService.favouriteRemoved.emit(cardId);
   }
 }

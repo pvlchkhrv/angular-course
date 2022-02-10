@@ -26,7 +26,7 @@ export class VehicleService {
       color: 'black',
       releaseYear: 2021,
       number: '0938-222',
-      imgSrc: '../../assets/images/cars/img_1.jpg'
+      imgSrc: '../../assets/images/cars/img_2.jpg'
     },
     {
       id: 3,
@@ -34,7 +34,7 @@ export class VehicleService {
       color: 'white',
       releaseYear: 2012,
       number: '1111-12',
-      imgSrc: '../../assets/images/cars/img_2.jpg'
+      imgSrc: '../../assets/images/cars/img_1.jpg'
     }
   ]
 

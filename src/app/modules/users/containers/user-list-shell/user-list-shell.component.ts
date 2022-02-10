@@ -16,6 +16,7 @@ export class UserListShellComponent implements OnInit {
   public users: IUser[] = [];
   public usersAsCards: ICard[] = [];
   public favourites: ICard[] = [];
+  id;
 
   constructor(
     private usersService: UsersService,
@@ -37,6 +38,14 @@ export class UserListShellComponent implements OnInit {
     const favourites$: Observable<ICard[]> = this.favouritesService.getFavourites();
     favourites$.subscribe((favourites: ICard[]) => {
       this.favourites = favourites;
+    });
+
+    this.favouritesService.favouriteAdded.subscribe( card => {
+      this.addToFavourites(card);
+    });
+
+    this.favouritesService.favouriteRemoved.subscribe(cardId => {
+      this.removeFromFavourites(cardId)
     });
   }
 

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {FormValidationService} from '../../services/form-validation.service';
 import {Observable} from 'rxjs';
 
@@ -18,9 +18,10 @@ export class UserDetailsFormComponent implements OnInit {
 
   public ngOnInit(): void {
     this.userDetailsFormGroup = new FormGroup({
+      id: new FormControl(+Date.now().toString()),
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
-      age: new FormControl('', [Validators.required, Validators.min(15), Validators.max(100)]),
+      age: new FormControl(0, [Validators.required, Validators.min(15), Validators.max(100)]),
       company: new FormControl('', Validators.maxLength(35)),
       department: new FormControl('', Validators.minLength(6)),
       gender: new FormControl('', Validators.required),
@@ -52,11 +53,11 @@ export class UserDetailsFormComponent implements OnInit {
     };
   }
 
-  private validateEmailAsync(control: AbstractControl): Observable<ValidationErrors> {
+  private validateEmailAsync(control: FormControl): Observable<ValidationErrors> {
     return this.formValidationService.validateUniqueEmailAsync(control.value);
   }
 
-  private validateGmailEmail(control: AbstractControl) {
+  private validateGmailEmail(control: FormControl) {
     const regEx = /@gmail/g;
     if (!regEx.test(control.value)) {
       return {invalidEmail: true} as ValidationErrors;

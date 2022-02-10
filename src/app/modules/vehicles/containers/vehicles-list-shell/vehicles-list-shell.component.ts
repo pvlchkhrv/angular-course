@@ -38,9 +38,21 @@ export class VehiclesListShellComponent implements OnInit {
     favourites$.subscribe((favourites: ICard[]) => {
       this.favourites = favourites;
     });
+
+    this.favouritesService.favouriteAdded.subscribe( card => {
+      this.addToFavourites(card);
+    });
+
+    this.favouritesService.favouriteRemoved.subscribe(cardId => {
+      this.removeFromFavourites(cardId)
+    });
   }
 
   public addToFavourites(card: ICard): void {
     this.favouritesService.addToFavourites(card, this.type);
+  }
+
+  public removeFromFavourites(cardId: number) {
+    this.favouritesService.removeFromFavourites(cardId, this.type);
   }
 }

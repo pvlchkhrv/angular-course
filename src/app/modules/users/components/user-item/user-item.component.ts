@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ICard} from '../../../shared/models/card.model';
 
 @Component({
@@ -8,15 +8,10 @@ import {ICard} from '../../../shared/models/card.model';
 })
 export class UserItemComponent implements OnInit {
   @Input() public userAsCard: ICard;
-  @Output() private onAddToFavouritesClick = new EventEmitter<ICard>();
 
   constructor() {
   }
 
   public ngOnInit(): void {
-  }
-
-  public handleOnAddToFavouritesClick(): void {
-    this.onAddToFavouritesClick.emit(this.userAsCard);
   }
 }

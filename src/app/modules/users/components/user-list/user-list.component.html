@@ -2,16 +2,7 @@
   <div class="items">
     <app-user-item *ngFor="let userAsCard of usersAsCards"
                    [userAsCard]="userAsCard"
-                   (onAddToFavouritesClick)="handleOnAddToFavouritesClick($event)"
-                   #userItem
     ></app-user-item>
   </div>
-  <div class="favourites">
-    <h2>Favourites</h2>
-    <ul>
-      <li *ngFor="let f of favourites">{{f.title}}
-        <button mat-button color="warn" (click)="handleOnRemoveFromFavouritesClick(f.id)">-</button>
-      </li>
-    </ul>
-  </div>
+  <app-favourites [favourites]="favourites"></app-favourites>
 </div>

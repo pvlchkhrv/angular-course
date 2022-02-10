@@ -4,7 +4,8 @@
     <input matInput formControlName="email">
   </mat-form-field>
   <span class="error" *ngIf="isControlInvalid('email') && getControl('email').errors['invalidEmail']">Email should be of type 'email@gmail.com'</span>
-  <span class="error" *ngIf="isControlInvalid('email') && getControl('email').errors['isEmailExist']">Already exists</span>
+  <span class="error"
+        *ngIf="isControlInvalid('email') && getControl('email').errors['isEmailExist']">Already exists</span>
 
   <mat-form-field appearance="fill">
     <mat-label>First name</mat-label>
@@ -22,7 +23,7 @@
     <mat-label>Age</mat-label>
     <input matInput type="number" formControlName="age">
   </mat-form-field>
-  <span class="error" *ngIf="isControlInvalid('age')">Age should be more than 15</span>
+  <span class="error" *ngIf="isControlInvalid('age')">Age should be more than 15 and less 100</span>
 
   <mat-form-field appearance="fill">
     <mat-label>Company</mat-label>

@@ -1,12 +1,15 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {ICard} from '../models/card.model';
 import {Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class FavouritesService {
   public favourites: ICard[] = [];
+  public favouriteAdded = new EventEmitter<ICard>();
+  public favouriteRemoved = new EventEmitter<number>();
 
   constructor() {
   }
@@ -20,13 +23,7 @@ export class FavouritesService {
   }
 
   public removeFromFavourites(cardId: number, type: string) {
-    this.getFavourites().subscribe(favourites => {
-      console.log('before', this.favourites)
-      if (favourites[type]) {
-        this.favourites = favourites[type].filter(fav => fav.id !== cardId);
-      }
-      console.log('after', this.favourites)
-    });
+    this.favourites[type] = this.favourites[type].filter(fav => fav.id !== cardId);
   }
 
   public getFavourites(): Observable<ICard[]> {
