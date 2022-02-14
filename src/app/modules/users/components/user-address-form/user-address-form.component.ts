@@ -1,12 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {
-  AbstractControl,
-  FormArray,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  Validators
-} from '@angular/forms';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-user-address-form',
@@ -25,7 +18,6 @@ export class UserAddressFormComponent implements OnInit {
   public ngOnInit(): void {
     this.addresses.push(this.initAddressFormGroup());
     this.onUserAddressesFormReady.emit(this.addresses);
-    console.log(this.addresses.value)
   }
 
   private initAddressFormGroup() {
@@ -44,14 +36,16 @@ export class UserAddressFormComponent implements OnInit {
     this.addresses.removeAt(index);
   }
 
-  public isCityFilled(array: FormArray): ValidationErrors {
-    const groups = array.value;
-    const error: string = ''
-    for (let group of groups) {
-      return !group.city && ({
-        cityError: this.errorMessages[1]
-      })
+  public setZipValidator(zipControl: FormControl): void {
+    zipControl.setValidators(Validators.required);
+    zipControl.updateValueAndValidity();
+  }
+
+  public cityControlFilled(cityControl: FormControl, zipControl: FormControl): boolean {
+    if (!!cityControl.value) {
+      this.setZipValidator(zipControl);
+      return true
     }
-    return null;
+    return false;
   }
 }

@@ -1,5 +1,18 @@
-.addressForm {
-  border: 1px solid darkred;
+mat-form-field {
+  width: 350px;
+}
+:host {
   display: flex;
   flex-direction: column;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.deleteButton {
+  margin-bottom: 10px;
+}
+.addressForm {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
 }

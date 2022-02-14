@@ -1,5 +1,5 @@
 <h2>Add User</h2>
-<form [formGroup]="addUserForm">
+<form [formGroup]="addUserForm" class="addUserForm">
   <app-user-details-form
     (onUserDetailsFormReady)="handleOnFormReady($event, childFormNames[0])"></app-user-details-form>
   <app-user-address-form
