@@ -7,7 +7,7 @@ import {VehiclesListShellComponent} from './modules/vehicles/containers/vehicles
 const routes: Routes = [
   {path: '', component: UserListShellComponent},
   {path: 'users', component: UserListShellComponent},
-  {path: 'add-user', component: AddUserShellComponent},
+  {path: 'add-user-form', component: AddUserShellComponent},
   {path: 'vehicles', component: VehiclesListShellComponent},
 ];
 

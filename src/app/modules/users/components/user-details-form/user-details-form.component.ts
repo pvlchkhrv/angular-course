@@ -57,7 +57,7 @@ export class UserDetailsFormComponent implements OnInit {
     return this.formValidationService.validateUniqueEmailAsync(control.value);
   }
 
-  private validateGmailEmail(control: FormControl) {
+  private validateGmailEmail(control: FormControl): ValidationErrors {
     const regEx = /@gmail/g;
     if (!regEx.test(control.value)) {
       return {invalidEmail: true} as ValidationErrors;

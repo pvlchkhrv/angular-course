@@ -24,7 +24,7 @@ export class TabGroupComponent implements OnInit {
         this.router.navigate(['/users']);
         break;
       case this.links[1]:
-        this.router.navigate(['/add-user']);
+        this.router.navigate(['/add-user-form']);
         break;
       case this.links[2]:
         this.router.navigate(['/vehicles']);

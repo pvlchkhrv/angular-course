@@ -1,16 +1,16 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {FormArray, FormGroup} from '@angular/forms';
 
-export type FormType = 'userDetails'
+export type FormType = 'userDetails' | 'addresses'
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.scss']
+  selector: 'app-add-user-form',
+  templateUrl: './add-user-form.component.html',
+  styleUrls: ['./add-user-form.component.scss']
 })
-export class AddUserComponent implements OnInit {
+export class AddUserFormComponent implements OnInit {
   @Output() userAdded = new EventEmitter<FormGroup>();
-  private childFormNames: FormType[] = ['userDetails'];
+  public childFormNames: FormType[] = ['userDetails', 'addresses'];
 
   public addUserForm: FormGroup;
 
@@ -21,8 +21,8 @@ export class AddUserComponent implements OnInit {
     this.addUserForm = new FormGroup({});
   }
 
-  public handleOnFormReady(formGroup: FormGroup) {
-    this.addUserForm.addControl(this.childFormNames[0], formGroup);
+  public handleOnFormReady(formGroup: FormGroup | FormArray, formType) {
+    this.addUserForm.addControl(formType, formGroup);
   }
 
   public onSubmit(): void {
