@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import {UserListShellComponent} from './modules/users/containers/user-list-shell/user-list-shell.component';
-import {AddUserShellComponent} from './modules/users/containers/add-user-shell/add-user-shell.component';
-import {VehiclesListShellComponent} from './modules/vehicles/containers/vehicles-list-shell/vehicles-list-shell.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {UsersPageComponent} from './core/pages/users-page/users-page.component';
+import {AddUserPageComponent} from './core/pages/add-user-page/add-user-page.component';
+import {VehiclesPageComponent} from './core/pages/vehicles-page/vehicles-page.component';
 
 const routes: Routes = [
-  {path: '', component: UserListShellComponent},
-  {path: 'users', component: UserListShellComponent},
-  {path: 'add-user-form', component: AddUserShellComponent},
-  {path: 'vehicles', component: VehiclesListShellComponent},
+  {path: 'users', component: UsersPageComponent},
+  {path: 'add-user', component: AddUserPageComponent},
+  {path: 'vehicles', component: VehiclesPageComponent},
+  {path: '', redirectTo: 'users', pathMatch: 'full'},
 ];
 
 @NgModule({

@@ -1,9 +1,0 @@
-<h2>Add User</h2>
-<form [formGroup]="addUserForm" class="addUserForm">
-  <app-user-details-form
-    (onUserDetailsFormReady)="handleOnFormReady($event, childFormNames[0])"></app-user-details-form>
-  <app-user-address-form
-    (onUserAddressesFormReady)="handleOnFormReady($event, childFormNames[1])"
-    [formArrayName]="childFormNames[1]"></app-user-address-form>
-  <button type="button" mat-raised-button color="primary" (click)="onSubmit()">Add User</button>
-</form>

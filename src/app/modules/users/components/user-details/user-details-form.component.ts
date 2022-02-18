@@ -4,20 +4,20 @@ import {FormValidationService} from '../../services/form-validation.service';
 import {Observable} from 'rxjs';
 
 @Component({
-  selector: 'app-user-details-form',
+  selector: 'app-user-details',
   templateUrl: './user-details-form.component.html',
   styleUrls: ['./user-details-form.component.scss']
 })
 export class UserDetailsFormComponent implements OnInit {
-  @Output() onUserDetailsFormReady = new EventEmitter<FormGroup>();
+  @Output() onUserDetailsReady = new EventEmitter<FormGroup>();
 
-  public userDetailsFormGroup: FormGroup;
+  public userDetails: FormGroup;
 
   constructor(private formValidationService: FormValidationService) {
   }
 
   public ngOnInit(): void {
-    this.userDetailsFormGroup = new FormGroup({
+    this.userDetails = new FormGroup({
       id: new FormControl(+Date.now().toString()),
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
@@ -28,17 +28,17 @@ export class UserDetailsFormComponent implements OnInit {
       imgSrc: new FormControl(''),
       email: new FormControl('', [Validators.required, Validators.email, this.validateGmailEmail], [this.validateEmailAsync.bind(this)])
     });
-    this.onUserDetailsFormReady.emit(this.userDetailsFormGroup);
+    this.onUserDetailsReady.emit(this.userDetails);
   }
 
   public isControlInvalid(controlName: string): boolean {
-    let control = this.userDetailsFormGroup.controls[controlName];
+    let control = this.userDetails.controls[controlName];
     let result = control.invalid && control.touched;
     return result;
   }
 
   public getControl(controlName: string) {
-    return this.userDetailsFormGroup.get(controlName);
+    return this.userDetails.get(controlName);
   }
 
   public onFileChange(event: Event): void {
@@ -47,7 +47,7 @@ export class UserDetailsFormComponent implements OnInit {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      this.userDetailsFormGroup.patchValue({
+      this.userDetails.patchValue({
         imgSrc: reader.result
       });
     };
@@ -58,7 +58,7 @@ export class UserDetailsFormComponent implements OnInit {
   }
 
   private validateGmailEmail(control: FormControl): ValidationErrors {
-    const regEx = /@gmail/g;
+    const regEx = /@gmail.com/g;
     if (!regEx.test(control.value)) {
       return {invalidEmail: true} as ValidationErrors;
     }

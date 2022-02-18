@@ -7,7 +7,7 @@ import {MapToCardsService} from '../../../shared/services/mapToCards.service';
 import {Observable} from 'rxjs';
 
 @Component({
-  selector: 'app-users',
+  selector: 'app-user-list-shell',
   templateUrl: './user-list-shell.component.html',
   styleUrls: ['./user-list-shell.component.scss'],
 })

@@ -6,15 +6,18 @@ import {VehiclesListShellComponent} from './containers/vehicles-list-shell/vehic
 import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
-  declarations: [
-    VehiclesListComponent,
-    VehiclesItemComponent,
-    VehiclesListShellComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule
-  ],
-  providers: []
+    declarations: [
+        VehiclesListComponent,
+        VehiclesItemComponent,
+        VehiclesListShellComponent
+    ],
+    imports: [
+        CommonModule,
+        SharedModule
+    ],
+    exports: [
+        VehiclesListShellComponent
+    ],
+    providers: []
 })
 export class VehiclesModule { }

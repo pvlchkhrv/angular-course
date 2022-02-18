@@ -1,4 +1,4 @@
-<form [formGroup]="userDetailsFormGroup">
+<div [formGroup]="userDetails" class="user-details-container">
   <mat-form-field appearance="fill">
     <mat-label>Email</mat-label>
     <input matInput formControlName="email">
@@ -37,8 +37,8 @@
   <span class="error" *ngIf="isControlInvalid('department')">Should be min 6 characters</span>
 
   <div class="radio-buttons">
-    <label>Sex:</label>
-    <mat-radio-group>
+    <label>Gender*</label>
+    <mat-radio-group >
       <input type="radio" formControlName="gender" value="male">Male
       <input type="radio" formControlName="gender" value="female">Female
     </mat-radio-group>
@@ -46,5 +46,4 @@
   <span class="error" *ngIf="isControlInvalid('gender')">Gender is required</span>
 
   <input type="file" (change)="onFileChange($event)">
-
-</form>
+</div>
