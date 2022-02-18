@@ -16,6 +16,7 @@ import {VehiclesModule} from './modules/vehicles/vehicles.module';
 import { UsersPageComponent } from './core/pages/users-page/users-page.component';
 import { AddUserPageComponent } from './core/pages/add-user-page/add-user-page.component';
 import { VehiclesPageComponent } from './core/pages/vehicles-page/vehicles-page.component';
+import { EditUserPageComponent } from './core/pages/edit-user-page/edit-user-page.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { VehiclesPageComponent } from './core/pages/vehicles-page/vehicles-page.
     UsersPageComponent,
     AddUserPageComponent,
     VehiclesPageComponent,
+    EditUserPageComponent,
   ],
   imports: [
     BrowserModule,

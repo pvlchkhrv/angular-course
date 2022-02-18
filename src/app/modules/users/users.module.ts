@@ -14,6 +14,7 @@ import { UserDetailsFormComponent } from './components/user-details/user-details
 import {FormValidationService} from "./services/form-validation.service";
 import { UserAddressesComponent } from './components/user-addresses/user-addresses.component';
 import { UserAddressComponent } from './components/user-address/user-address.component';
+import { EditUserShellComponent } from './containers/edit-user-shell/edit-user-shell.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { UserAddressComponent } from './components/user-address/user-address.com
     UserDetailsFormComponent,
     UserAddressesComponent,
     UserAddressComponent,
+    EditUserShellComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,7 @@ import { UserAddressComponent } from './components/user-address/user-address.com
     ReactiveFormsModule,
   ],
   providers: [FormValidationService],
-  exports: [UserListShellComponent, AddUserShellComponent]
+  exports: [UserListShellComponent, AddUserShellComponent, EditUserShellComponent]
 })
 
 export class UsersModule {}

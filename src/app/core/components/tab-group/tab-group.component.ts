@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./tab-group.component.scss']
 })
 export class TabGroupComponent implements OnInit {
-  public links: string[] = ['Users', 'Add User', 'Vehicles'];
+  public links: string[] = ['Users', 'Add User', 'Edit User', 'Vehicles'];
   public activeLink: string;
   public background: ThemePalette = undefined;
 
@@ -27,6 +27,9 @@ export class TabGroupComponent implements OnInit {
         this.router.navigate(['/add-user']);
         break;
       case this.links[2]:
+        this.router.navigate(['/edit-user']);
+        break;
+      case this.links[3]:
         this.router.navigate(['/vehicles']);
         break;
       default:
