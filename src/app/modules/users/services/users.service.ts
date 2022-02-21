@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {IUser} from '../models/user.model';
-import {Observable, of} from 'rxjs';
+import {IAddress} from "../models/address.model";
+import {delay, Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class UsersService {
       gender: 'male',
       company: 'Forest',
       department: 'Predator',
-      email: 'bear@gmail.com'
+      email: 'bear@gmail.com',
+      addresses: []
     },
     {
       id: 2,
@@ -32,7 +34,10 @@ export class UsersService {
       gender: 'male',
       company: 'Forest',
       department: 'Predator',
-      email: 'lynx@gmail.com'
+      email: 'lynx@gmail.com',
+      addresses: [
+        {addressLine: 'sssss', city: 'Minsk', zip: '220025'}
+      ]
     },
     {
       id: 3,
@@ -43,7 +48,8 @@ export class UsersService {
       gender: 'male',
       company: 'Forest',
       department: 'Predator',
-      email: 'wolf@gmail.com'
+      email: 'wolf@gmail.com',
+      addresses: []
     },
     {
       id: 4,
@@ -54,16 +60,24 @@ export class UsersService {
       gender: 'male',
       company: 'Forest',
       department: 'Predator',
-      email: 'dog@gmail.com'
+      email: 'dog@gmail.com',
+      addresses: []
     },
   ]
 
   public getUsers(): Observable<IUser[]> {
-    return of(this.users);
+    return of(this.users).pipe(delay(1000));;
+  }
+
+  public getUserById(id: number) {
+    const user = this.users.find(user => user.id === +id);
+    return of(user).pipe(delay(1000));
+
   }
 
   public addUser(user: IUser): Observable<IUser[]> {
     this.users = [...this.users, user];
     return of(this.users);
   }
+
 }

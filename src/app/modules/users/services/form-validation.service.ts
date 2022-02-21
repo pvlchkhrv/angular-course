@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {map, Observable, takeWhile} from 'rxjs';
 import {ValidationErrors} from '@angular/forms';
 import {UsersService} from './users.service';
 import {IUser} from '../models/user.model';
@@ -11,7 +11,8 @@ export class FormValidationService {
   }
 
   public validateUniqueEmailAsync(userEmail: string): Observable<ValidationErrors> {
-    const email = this.getUsersEmails().find(emailInStorage => emailInStorage === userEmail);
+    let email: string;
+    this.getUsersEmails().subscribe(emails => email = emails.find(emailInStorage => emailInStorage === userEmail))
     return new Observable<ValidationErrors>((observer) => {
       if (email) {
         observer.next({
@@ -24,11 +25,10 @@ export class FormValidationService {
     });
   }
 
-  private getUsersEmails(): string[] {
-    let emails: string[];
-    this.usersService.getUsers().subscribe((users: IUser[]) => {
-      emails = users.map(u => u.email);
-    });
-    return emails;
+  private getUsersEmails(): Observable<string[]> {
+    return this.usersService.getUsers()
+      .pipe(
+        map(users => users.map(user => user.email))
+      )
   }
 }

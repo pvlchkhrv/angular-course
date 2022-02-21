@@ -5,6 +5,7 @@ import {MatCardModule} from '@angular/material/card';
 import {CardComponent} from './components/card/card.component';
 import {MatIconModule} from '@angular/material/icon';
 import { FavouritesListComponent } from './components/favourites-list/favourites-list.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [CardComponent, FavouritesListComponent],
@@ -13,6 +14,7 @@ import { FavouritesListComponent } from './components/favourites-list/favourites
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    RouterModule
   ],
   exports: [MatButtonModule, CardComponent, FavouritesListComponent]
 })
