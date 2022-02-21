@@ -1,7 +1,8 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {FormValidationService} from '../../services/form-validation.service';
 import {Observable} from 'rxjs';
+import {IUser} from "../../models/user.model";
 
 @Component({
   selector: 'app-user-details',
@@ -9,6 +10,7 @@ import {Observable} from 'rxjs';
   styleUrls: ['./user-details-form.component.scss']
 })
 export class UserDetailsFormComponent implements OnInit {
+  @Input() user$: Observable<IUser>
   @Output() onUserDetailsReady = new EventEmitter<FormGroup>();
 
   public userDetails: FormGroup;

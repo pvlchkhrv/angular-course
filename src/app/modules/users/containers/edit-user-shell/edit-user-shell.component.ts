@@ -28,7 +28,8 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.editUserForm = new FormGroup({});
 
-    this.usersService.getUserById(this.id)
+    this.user$ = this.usersService.getUserById(this.id);
+    this.user$
       .pipe(
         take(1),
         map(user => ({
@@ -45,7 +46,12 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
           },
           addresses: user.addresses
         }))
-      ).subscribe(user => this.editUserForm.setValue(user))
+      ).subscribe(user => this.editUserForm.patchValue(user))
+
+    // merge(
+    //   this.editUserForm.controls['userDetails'].get('firstName').valueChanges,
+    //   this.editUserForm.controls['userDetails'].valueChanges,
+    // )
   }
 
   public ngOnDestroy() {
