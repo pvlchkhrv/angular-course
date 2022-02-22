@@ -1,8 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {FormValidationService} from '../../services/form-validation.service';
 import {Observable} from 'rxjs';
-import {IUser} from "../../models/user.model";
 
 @Component({
   selector: 'app-user-details',
@@ -10,7 +9,6 @@ import {IUser} from "../../models/user.model";
   styleUrls: ['./user-details-form.component.scss']
 })
 export class UserDetailsFormComponent implements OnInit {
-  @Input() user$: Observable<IUser>
   @Output() onUserDetailsReady = new EventEmitter<FormGroup>();
 
   public userDetails: FormGroup;
@@ -28,7 +26,9 @@ export class UserDetailsFormComponent implements OnInit {
       department: new FormControl('', Validators.minLength(6)),
       gender: new FormControl('', Validators.required),
       imgSrc: new FormControl(''),
-      email: new FormControl('', [Validators.required, Validators.email, this.validateGmailEmail], [this.validateEmailAsync.bind(this)])
+      email: new FormControl('',
+        [Validators.required, Validators.email, this.validateGmailEmail],
+        [this.validateEmailAsync.bind(this)])
     });
     this.onUserDetailsReady.emit(this.userDetails);
   }

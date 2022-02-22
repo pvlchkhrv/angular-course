@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {IUser} from '../models/user.model';
-import {IAddress} from "../models/address.model";
-import {delay, Observable, of} from 'rxjs';
+import {delay, map, Observable, of, tap} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -66,18 +65,26 @@ export class UsersService {
   ]
 
   public getUsers(): Observable<IUser[]> {
-    return of(this.users).pipe(delay(1000));;
+    return of(this.users).pipe(delay(1000));
   }
 
-  public getUserById(id: number) {
-    const user = this.users.find(user => user.id === +id);
-    return of(user).pipe(delay(1000));
-
+  public getUserById(id: number): Observable<IUser> {
+    return this.getUsers().pipe(
+      map(users => users.find(u => u.id === id)),
+      delay(500)
+    )
   }
 
-  public addUser(user: IUser): Observable<IUser[]> {
-    this.users = [...this.users, user];
-    return of(this.users);
+  public addUser(user: IUser): void {
+    this.getUsers().pipe(
+      map(users => [...users, user]),
+    )
+  }
+
+  public editUser(userModified: IUser): void {
+    this.getUserById(userModified.id).pipe(
+      map(user => ({...userModified}))
+    )
   }
 
 }
