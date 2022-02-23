@@ -1,5 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {takeWhile} from 'rxjs';
 
 @Component({
   selector: 'app-user-addresses',
@@ -7,40 +8,27 @@ import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./user-addresses.component.scss']
 })
 
-export class UserAddressesComponent implements OnInit {
+export class UserAddressesComponent implements OnInit, OnDestroy {
   @Output() public onUserAddressesReady = new EventEmitter<FormArray>();
   public addresses: FormArray = new FormArray([]);
-
-  constructor() {
-  }
+  private isComponentActive: boolean = true;
 
   public ngOnInit(): void {
     this.addresses.push(this.initAddressFormGroup());
     this.onUserAddressesReady.emit(this.addresses);
   }
 
-  private initAddressFormGroup() {
-    const addressGroup =  new FormGroup({
+  public ngOnDestroy(): void {
+    this.isComponentActive = false;
+  }
+
+  private initAddressFormGroup(): FormGroup {
+    const addressGroup = new FormGroup({
       addressLine: new FormControl('', Validators.required),
       city: new FormControl(''),
       zip: new FormControl({value: '', disabled: true})
     });
-
-    const cityControl = addressGroup.get('city');
-    const zipControl = addressGroup.get('zip');
-
-    cityControl.valueChanges.subscribe((value) => {
-      if (value) {
-        zipControl.setValidators(Validators.required);
-        zipControl.enable();
-        zipControl.updateValueAndValidity();
-      } else {
-        zipControl.clearValidators();
-        zipControl.disable();
-        zipControl.updateValueAndValidity();
-      }
-    });
-
+    this.configureZipControl(addressGroup);
     return addressGroup;
   }
 
@@ -54,5 +42,23 @@ export class UserAddressesComponent implements OnInit {
 
   public setDisableProp(addressesLength: number): boolean {
     return addressesLength === 1;
+  }
+
+  private configureZipControl(addressGroup: FormGroup): void {
+    const cityControl = addressGroup.get('city');
+    const zipControl = addressGroup.get('zip');
+
+    cityControl.valueChanges
+      .pipe(takeWhile(() => this.isComponentActive)).subscribe((value) => {
+      if (value) {
+        zipControl.setValidators(Validators.required);
+        zipControl.enable();
+        zipControl.updateValueAndValidity();
+      } else {
+        zipControl.clearValidators();
+        zipControl.disable();
+        zipControl.updateValueAndValidity();
+      }
+    });
   }
 }

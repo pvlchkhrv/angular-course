@@ -1,0 +1,7 @@
+<mat-form-field class="user-search" appearance="fill">
+  <mat-label>Search for user</mat-label>
+  <input matInput type="text" [formControl]="userSearchControl">
+  <button matSuffix mat-icon-button aria-label="Clear" (click)=onClearClick()>
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
