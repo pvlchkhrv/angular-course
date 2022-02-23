@@ -1,5 +1,6 @@
 <div class="container">
-  <app-user-list [usersAsCards]="usersAsCards"
-                 [favourites]="favourites[type]"
+  <app-user-search (valueChanged)="onSearch($event)"></app-user-search>
+  <app-user-list [usersAsCards]="usersAsCards$ | async"
+                 [favourites]="favourites$ | async"
   ></app-user-list>
 </div>

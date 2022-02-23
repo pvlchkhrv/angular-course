@@ -1,22 +1,20 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {ICard} from '../../models/card.model';
 import {FavouritesService} from '../../services/favourites.service';
 
 @Component({
   selector: 'app-favourites',
   templateUrl: './favourites-list.component.html',
-  styleUrls: ['./favourites-list.component.scss']
+  styleUrls: ['./favourites-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FavouritesListComponent implements OnInit {
+export class FavouritesListComponent {
   @Input() public favourites: ICard[];
 
   constructor(private favouriteService: FavouritesService) {
   }
 
-  ngOnInit(): void {
-  }
-
-  handleRemoveFromFavourites(cardId) {
+  handleRemoveFromFavourites(cardId: number) {
     this.favouriteService.favouriteRemoved.emit(cardId);
   }
 }

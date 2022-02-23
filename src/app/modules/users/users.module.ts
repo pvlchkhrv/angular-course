@@ -15,6 +15,8 @@ import {FormValidationService} from "./services/form-validation.service";
 import { UserAddressesComponent } from './components/user-addresses/user-addresses.component';
 import { UserAddressComponent } from './components/user-address/user-address.component';
 import { EditUserShellComponent } from './containers/edit-user-shell/edit-user-shell.component';
+import { UserSearchComponent } from './components/user-search/user-search.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { EditUserShellComponent } from './containers/edit-user-shell/edit-user-s
     UserAddressesComponent,
     UserAddressComponent,
     EditUserShellComponent,
+    UserSearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +38,7 @@ import { EditUserShellComponent } from './containers/edit-user-shell/edit-user-s
     MatSelectModule,
     MatRadioModule,
     ReactiveFormsModule,
+    MatIconModule,
   ],
   providers: [FormValidationService],
   exports: [UserListShellComponent, AddUserShellComponent, EditUserShellComponent]

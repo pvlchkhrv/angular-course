@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {debounceTime, distinctUntilChanged, map, Observable, Subscription, tap} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map, Observable, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-user-search',
@@ -22,7 +22,7 @@ export class UserSearchComponent implements OnInit, OnDestroy {
     this.sub = this.getValue().subscribe(value => this.valueChanged.emit(value));
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
 

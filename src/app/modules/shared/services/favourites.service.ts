@@ -26,7 +26,10 @@ export class FavouritesService {
     this.favourites[type] = this.favourites[type].filter(fav => fav.id !== cardId);
   }
 
-  public getFavourites(): Observable<ICard[]> {
+  public getFavourites(type: string): Observable<ICard[]> {
+    if (this.favourites[type]) {
+      return of(this.favourites[type]);
+    }
     return of(this.favourites);
   }
 }

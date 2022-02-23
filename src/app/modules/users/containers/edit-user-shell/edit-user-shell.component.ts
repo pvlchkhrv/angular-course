@@ -17,7 +17,6 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
   public childFormNames: FormType[] = ['userDetails', 'addresses'];
   public editUserForm: FormGroup;
   private id: number;
-  private subscription: Subscription;
   private isComponentActive = true;
   public user$: Observable<IUser>;
 
@@ -27,17 +26,21 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.editUserForm = new FormGroup({});
 
-    this.subscription = this.route.params.subscribe(params => {
-      this.id = +params['id'];
+    this.route.params
+      .pipe(takeWhile(() => this.isComponentActive))
+      .subscribe(params => {
+        this.id = +params['id'];
 
-      this.user$ = this.usersService.getUserById(this.id);
+        this.user$ = this.usersService.getUserById(this.id);
 
-      this.user$.pipe(takeWhile(() => this.isComponentActive)).subscribe(user => {
-        this.prefillFormGroup(user);
-        this.mergedFirstNameAndLastName.subscribe(values => this.patchEmailControl(values)
-        );
+        this.user$
+          .pipe(takeWhile(() => this.isComponentActive))
+          .subscribe(user => {
+            this.prefillFormGroup(user);
+            this.mergedFirstNameAndLastName.subscribe(values => this.patchEmailControl(values)
+            );
+          });
       });
-    });
   }
 
   public ngOnDestroy(): void {
@@ -57,11 +60,12 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
     }
   }
 
-  mapFormDataToUserInterface(): IUser {
-    return {...this.editUserForm.value.userDetails, addresses: this.editUserForm.value.addresses};
+  private mapFormDataToUserInterface(): IUser {
+    const mappedUser = {...this.editUserForm.value.userDetails, addresses: this.editUserForm.value.addresses};
+    return mappedUser
   }
 
-  public onEditUserClick() {
+  public onEditUserClick(): void {
     if (this.checkIsValid()) {
       this.usersService.editUser(this.mapFormDataToUserInterface());
       this.router.navigate(['/users']);
@@ -95,10 +99,10 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
     this.editUserForm.controls[this.childFormNames[1]].patchValue(addresses);
   }
 
-  private patchEmailControl(values: string[]) {
+  private patchEmailControl(values: string[]): void {
     const [firstName, lastName] = values;
-    const emailControl = this.editUserForm.controls[this.childFormNames[0]].get('email')
+    const emailControl = this.editUserForm.controls[this.childFormNames[0]].get('email');
 
-    emailControl.patchValue(`${firstName}${lastName}@gmail.com`)
+    emailControl.patchValue(`${firstName}${lastName}@gmail.com`);
   }
 }

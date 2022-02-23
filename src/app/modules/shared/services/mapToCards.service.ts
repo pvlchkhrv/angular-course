@@ -15,34 +15,28 @@ export class MapToCardsService {
   constructor(private userService: UsersService, private vehicleService: VehicleService) {
   }
 
-  public mapUsersToCards(): Observable<ICard[]> {
-    const users$ = this.userService.getUsers();
-    return users$.pipe(map((users: IUser[]) => {
-      return users.map((u: IUser) => {
-        return {
-          id: u.id,
-          title: u.firstName,
-          subtitle: u.company,
-          imgSrc: u.imgSrc,
-          description: `This is ${u.firstName} ${u.lastName} from ${u.company}. He is ${u.gender}.His department is ${u.department}.`
-        }
-      });
-    }));
+  public mapUsersToCards(users: IUser[]): ICard[] {
+    return users.map(u => {
+      return {
+        id: u.id,
+        title: u.firstName,
+        subtitle: u.company,
+        imgSrc: u.imgSrc,
+        description: `This is ${u.firstName} ${u.lastName} from ${u.company}. He is ${u.gender}.His department is ${u.department}.`
+      }
+    });
   }
 
-  public mapVehiclesToCards(): Observable<ICard[]> {
-    const vehicles$ = this.vehicleService.getVehicles();
-    return vehicles$.pipe(map((vehicles: IVehicle[]) => {
-      return vehicles.map((v: IVehicle) => {
-        return {
-          id: v.id,
-          title: v.name,
-          subtitle: v.number,
-          imgSrc: v.imgSrc,
-          description: `This is ${v.name} of ${v.releaseYear}. It's registration number is ${v.number}. Color is ${v.color}`
-        }
-      });
-    }));
+  public mapVehiclesToCards(vehicles: IVehicle[]): ICard[] {
+    return vehicles.map(v => {
+      return {
+        id: v.id,
+        title: v.name,
+        subtitle: v.number,
+        imgSrc: v.imgSrc,
+        description: `This is ${v.name} of ${v.releaseYear}. It's registration number is ${v.number}. Color is ${v.color}`
+      }
+    });
   }
 
 }

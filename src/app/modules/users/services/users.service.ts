@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {IUser} from '../models/user.model';
-import {delay, map, Observable, of, tap} from 'rxjs';
+import {delay, map, mergeMap, Observable, of, tap} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -75,16 +75,25 @@ export class UsersService {
     )
   }
 
+  public getUsersOnSearch(value: string): Observable<IUser[]> {
+    return this.getUsers()
+      .pipe(
+        map(users => users.filter(u =>
+          u.firstName.toLowerCase().includes(value) || u.lastName.toLowerCase().includes(value))),
+      )
+  }
+
   public addUser(user: IUser): void {
-    this.getUsers().pipe(
-      map(users => [...users, user]),
-    )
+    this.users = [...this.users, user];
   }
 
   public editUser(userModified: IUser): void {
-    this.getUserById(userModified.id).pipe(
-      map(user => ({...userModified}))
-    )
+    this.users = this.users.map(u => {
+      if (userModified.id === u.id) {
+        return userModified;
+      }
+      return u;
+    });
   }
 
 }
