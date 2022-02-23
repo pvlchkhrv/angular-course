@@ -17,6 +17,8 @@ import { UsersPageComponent } from './core/pages/users-page/users-page.component
 import { AddUserPageComponent } from './core/pages/add-user-page/add-user-page.component';
 import { VehiclesPageComponent } from './core/pages/vehicles-page/vehicles-page.component';
 import { EditUserPageComponent } from './core/pages/edit-user-page/edit-user-page.component';
+import { ProgressBarComponent } from './core/components/progress-bar/progress-bar.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { EditUserPageComponent } from './core/pages/edit-user-page/edit-user-pag
     AddUserPageComponent,
     VehiclesPageComponent,
     EditUserPageComponent,
+    ProgressBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +42,7 @@ import { EditUserPageComponent } from './core/pages/edit-user-page/edit-user-pag
     MatToolbarModule,
     MatTabsModule,
     MatButtonModule,
+    MatProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,6 +5,7 @@ import {FavouritesService} from '../../../shared/services/favourites.service';
 import {IUser} from '../../models/user.model';
 import {MapToCardsService} from '../../../shared/services/mapToCards.service';
 import {map, Observable, takeWhile} from 'rxjs';
+import {AppServiceService} from '../../../../app-service.service';
 
 @Component({
   selector: 'app-user-list-shell',
@@ -21,11 +22,14 @@ export class UserListShellComponent implements OnInit, OnDestroy {
   constructor(
     private usersService: UsersService,
     private favouritesService: FavouritesService,
-    private mapToCardsService: MapToCardsService) {
+    private mapToCardsService: MapToCardsService,
+    private appService: AppServiceService) {
   }
 
   public ngOnInit(): void {
+    this.appService.showLoader();
     this.users$ = this.usersService.getUsers();
+    this.users$.subscribe(users => this.appService.hideLoader());
 
     this.usersAsCards$ = this.users$.pipe(
       map(users => this.mapToCardsService.mapUsersToCards(users))
