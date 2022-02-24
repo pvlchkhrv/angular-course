@@ -6,15 +6,18 @@ import {CardComponent} from './components/card/card.component';
 import {MatIconModule} from '@angular/material/icon';
 import { FavouritesListComponent } from './components/favourites-list/favourites-list.component';
 import {RouterModule} from "@angular/router";
+import { ModalComponent } from './components/modal/modal.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
-  declarations: [CardComponent, FavouritesListComponent],
+  declarations: [CardComponent, FavouritesListComponent, ModalComponent],
   imports: [
     CommonModule,
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    RouterModule
+    RouterModule,
+    MatDialogModule
   ],
   exports: [MatButtonModule, CardComponent, FavouritesListComponent]
 })

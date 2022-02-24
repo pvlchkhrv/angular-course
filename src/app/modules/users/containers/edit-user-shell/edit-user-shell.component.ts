@@ -4,6 +4,9 @@ import {combineLatest, forkJoin, Observable, Subscription, takeWhile} from 'rxjs
 import {FormArray, FormGroup} from '@angular/forms';
 import {IUser} from '../../models/user.model';
 import {UsersService} from '../../services/users.service';
+import {ModalComponent} from "../../../shared/components/modal/modal.component";
+import {MatDialog} from "@angular/material/dialog";
+import {IModalData} from "../../../shared/models/modal.interfaceData";
 
 type FormType = 'userDetails' | 'addresses';
 
@@ -16,11 +19,24 @@ type FormType = 'userDetails' | 'addresses';
 export class EditUserShellComponent implements OnInit, OnDestroy {
   public childFormNames: FormType[] = ['userDetails', 'addresses'];
   public editUserForm: FormGroup;
+  public user$: Observable<IUser>;
+  private modalData: IModalData = {
+    title: 'Unsaved Changes Detected',
+    message: 'You have unsaved changes',
+    confirmMessage: 'OK, let me out',
+    cancelMessage: 'No, stay here'
+  }
   private id: number;
   private isComponentActive = true;
-  public user$: Observable<IUser>;
 
-  constructor(private route: ActivatedRoute, private usersService: UsersService, private router: Router) {
+
+
+
+  constructor(
+    private route: ActivatedRoute,
+    private usersService: UsersService,
+    private router: Router,
+    public modal: MatDialog) {
   }
 
   public ngOnInit(): void {
@@ -37,7 +53,7 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
           .pipe(takeWhile(() => this.isComponentActive))
           .subscribe(user => {
             this.prefillFormGroup(user);
-            this.mergedFirstNameAndLastName.subscribe(values => this.patchEmailControl(values)
+            this.firstNameAndLastNameCombined$.subscribe(values => this.patchEmailControl(values)
             );
           });
       });
@@ -66,13 +82,21 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
   }
 
   public onEditUserClick(): void {
-    if (this.checkIsValid()) {
-      this.usersService.editUser(this.mapFormDataToUserInterface());
-      this.router.navigate(['/users']);
-    }
+    this.openModal();
+    // if (this.checkIsValid()) {
+    //   this.usersService.editUser(this.mapFormDataToUserInterface());
+    //   this.router.navigate(['/users']);
+    // }
   }
 
-  private get mergedFirstNameAndLastName(): Observable<string[]> {
+  public openModal(): void {
+    this.modal.open(ModalComponent, {
+      data: this.modalData,
+      width: '450px'
+    }).afterClosed().subscribe(result => console.log('closed'));
+  }
+
+  private get firstNameAndLastNameCombined$(): Observable<string[]> {
     // return this.editUserForm.controls[this.childFormNames[0]].get('firstName').valueChanges
     //   .pipe(
     //     mergeMap(firstNameValue =>
