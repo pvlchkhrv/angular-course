@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {IModalData} from '../../models/modal.interfaceData';
+import {ModalService} from "../../services/modal.service";
 
 @Component({
   selector: 'app-modal',
@@ -11,16 +12,14 @@ export class ModalComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: IModalData,
-    public modalRef: MatDialogRef<ModalComponent>
-  ) { }
+    private modalService: ModalService
+  ) {}
 
   ngOnInit(): void {
   }
 
-  close() {
-    this.modalRef.close();
+  checkTheAnswer(answer: boolean): void {
+    this.modalService.userAnswerSubj.next(answer);
   }
-
-
 
 }

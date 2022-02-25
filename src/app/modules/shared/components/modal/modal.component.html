@@ -8,12 +8,20 @@
 <div mat-dialog-content>
   <p>{{data?.message}}</p>
 </div>
-
 <div mat-dialog-actions [align]="'end'">
-  <button mat-raised-button [mat-dialog-close]="false">
-    {{data?.cancelMessage}}
+  <button
+    mat-raised-button
+    [mat-dialog-close]="false"
+    (click)="checkTheAnswer(false)"
+  >{{data?.cancelMessage}}
   </button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="true">
+
+  <button
+    mat-raised-button
+    color="primary"
+    [mat-dialog-close]="true"
+    (click)="checkTheAnswer(true)"
+  >
     {{data?.confirmMessage}}
   </button>
 </div>

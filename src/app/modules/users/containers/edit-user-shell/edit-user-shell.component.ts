@@ -1,15 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {combineLatest, forkJoin, Observable, Subscription, takeWhile} from 'rxjs';
-import {FormArray, FormGroup} from '@angular/forms';
+import {combineLatest, from, map, Observable, takeWhile} from 'rxjs';
+import {AbstractControl, FormArray, FormControl, FormGroup} from '@angular/forms';
 import {IUser} from '../../models/user.model';
 import {UsersService} from '../../services/users.service';
-import {ModalComponent} from "../../../shared/components/modal/modal.component";
-import {MatDialog} from "@angular/material/dialog";
-import {IModalData} from "../../../shared/models/modal.interfaceData";
 
 type FormType = 'userDetails' | 'addresses';
-
 
 @Component({
   selector: 'app-edit-user-shell',
@@ -20,23 +16,13 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
   public childFormNames: FormType[] = ['userDetails', 'addresses'];
   public editUserForm: FormGroup;
   public user$: Observable<IUser>;
-  private modalData: IModalData = {
-    title: 'Unsaved Changes Detected',
-    message: 'You have unsaved changes',
-    confirmMessage: 'OK, let me out',
-    cancelMessage: 'No, stay here'
-  }
   private id: number;
   private isComponentActive = true;
-
-
-
 
   constructor(
     private route: ActivatedRoute,
     private usersService: UsersService,
-    private router: Router,
-    public modal: MatDialog) {
+    private router: Router) {
   }
 
   public ngOnInit(): void {
@@ -53,7 +39,9 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
           .pipe(takeWhile(() => this.isComponentActive))
           .subscribe(user => {
             this.prefillFormGroup(user);
-            this.firstNameAndLastNameCombined$.subscribe(values => this.patchEmailControl(values)
+            this.firstNameAndLastNameCombined$
+              .pipe(takeWhile(() => this.isComponentActive))
+              .subscribe(values => this.patchEmailControl(values)
             );
           });
       });
@@ -76,24 +64,35 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
     }
   }
 
+  public hasUnsavedData() {
+    return this.editUserForm.dirty;
+  }
+
+  public get unsavedFields(): Observable<AbstractControl[]> | null{
+    if (this.hasUnsavedData()) {
+      this.editUserForm.valueChanges.pipe(
+        map(parentForm => Object.values(parentForm.controls).filter(childForm => childForm)),
+
+      )
+
+      const dirtyChildGroups = Object.values(this.editUserForm.controls).filter(child => child.dirty);
+      const dirtyControls = Object.values(dirtyChildGroups)
+        .filter(control => control.dirty)
+      console.log(dirtyControls)
+    }
+    return null;
+  } // TODO:
+
   private mapFormDataToUserInterface(): IUser {
     const mappedUser = {...this.editUserForm.value.userDetails, addresses: this.editUserForm.value.addresses};
-    return mappedUser
+    return mappedUser;
   }
 
   public onEditUserClick(): void {
-    this.openModal();
     // if (this.checkIsValid()) {
     //   this.usersService.editUser(this.mapFormDataToUserInterface());
     //   this.router.navigate(['/users']);
     // }
-  }
-
-  public openModal(): void {
-    this.modal.open(ModalComponent, {
-      data: this.modalData,
-      width: '450px'
-    }).afterClosed().subscribe(result => console.log('closed'));
   }
 
   private get firstNameAndLastNameCombined$(): Observable<string[]> {
@@ -129,4 +128,5 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
 
     emailControl.patchValue(`${firstName}${lastName}@gmail.com`);
   }
+
 }

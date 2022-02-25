@@ -4,7 +4,7 @@ import {UsersPageComponent} from './core/pages/users-page/users-page.component';
 import {AddUserPageComponent} from './core/pages/add-user-page/add-user-page.component';
 import {VehiclesPageComponent} from './core/pages/vehicles-page/vehicles-page.component';
 import {EditUserPageComponent} from './core/pages/edit-user-page/edit-user-page.component';
-import {ExitEditPageGuard} from "./modules/users/exit-edit-page.guard";
+import {ExitEditPageGuard} from "./modules/users/guards/exit-edit-page.guard";
 
 const routes: Routes = [
   {path: 'users', component: UsersPageComponent},
