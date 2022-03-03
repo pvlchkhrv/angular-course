@@ -1,12 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {combineLatest, forkJoin, Observable, Subscription, takeWhile} from 'rxjs';
+import {combineLatest, Observable, takeWhile} from 'rxjs';
 import {FormArray, FormGroup} from '@angular/forms';
 import {IUser} from '../../models/user.model';
 import {UsersService} from '../../services/users.service';
-import {ModalComponent} from "../../../shared/components/modal/modal.component";
 import {MatDialog} from "@angular/material/dialog";
-import {IModalData} from "../../../shared/models/modal.interfaceData";
+import {ILocation} from '../../models/address.model';
 
 type FormType = 'userDetails' | 'addresses';
 
@@ -20,12 +19,6 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
   public childFormNames: FormType[] = ['userDetails', 'addresses'];
   public editUserForm: FormGroup;
   public user$: Observable<IUser>;
-  private modalData: IModalData = {
-    title: 'Unsaved Changes Detected',
-    message: 'You have unsaved changes',
-    confirmMessage: 'OK, let me out',
-    cancelMessage: 'No, stay here'
-  }
   private id: number;
   private isComponentActive = true;
 
@@ -77,24 +70,69 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
   }
 
   private mapFormDataToUserInterface(): IUser {
-    const mappedUser = {...this.editUserForm.value.userDetails, addresses: this.editUserForm.value.addresses};
-    return mappedUser
+    const formData = this.editUserForm.value;
+    return {
+      "gender": formData.gender,
+      "name": {
+        "title": formData.gender === 'male' ? 'Mr.' : 'Mrs',
+        "first": formData.firstName,
+        "last": formData.lastName
+      },
+      "location": {
+        "street": {
+          "number": 0,
+          "name": formData.addresses[0].addressLine,
+        },
+        "city": formData.addresses[0].city,
+        "state": '',
+        "country": '',
+        "postcode": formData.addresses.zip,
+        "coordinates": {
+          "latitude": '',
+          "longitude": ''
+        },
+        "timezone": {
+          "offset": '',
+          "description": ''
+        }
+      },
+      "email": "brad.gibson@example.com",
+      "dob": {
+        "date": "1993-07-20T09:44:18.674Z",
+        "age": 26
+      },
+      "picture": {
+        "large": "https://randomuser.me/api/portraits/men/75.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/75.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/75.jpg"
+      },
+      "id": {
+        "name": "CPR",
+        "value": "160982-7765"
+      },
+
+    }
+    // const mappedUser = {...this.editUserForm.value.userDetails, addresses: this.editUserForm.value.addresses};
+    // return mappedUser
   }
 
   public onEditUserClick(): void {
-    this.openModal();
-    // if (this.checkIsValid()) {
-    //   this.usersService.editUser(this.mapFormDataToUserInterface());
-    //   this.router.navigate(['/users']);
-    // }
+    if (this.checkIsValid()) {
+      this.usersService.editUser(this.mapFormDataToUserInterface());
+      this.router.navigate(['/users']);
+    }
   }
 
-  public openModal(): void {
-    this.modal.open(ModalComponent, {
-      data: this.modalData,
-      width: '450px'
-    }).afterClosed().subscribe(result => console.log('closed'));
+  isFormDirty() {
+   return this.editUserForm.dirty
   }
+
+  // public openModal(): void {
+  //   this.modal.open(ModalComponent, {
+  //     data: this.modalData,
+  //     width: '450px'
+  //   }).afterClosed().subscribe(result => console.log('closed'));
+  // }
 
   private get firstNameAndLastNameCombined$(): Observable<string[]> {
     // return this.editUserForm.controls[this.childFormNames[0]].get('firstName').valueChanges
@@ -118,9 +156,17 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
   }
 
   private prefillFormGroup(user: IUser): void {
-    const {addresses, ...userDetails} = user;
+    const location = {
+      addressLine: user.location.street,
+      city: user.location.city,
+      zip: user.location.postcode
+    }
+    const userDetails = {
+      firstName: user.name.first,
+      lastName: user.name.last,
+    }
     this.editUserForm.controls[this.childFormNames[0]].patchValue(userDetails);
-    this.editUserForm.controls[this.childFormNames[1]].patchValue(addresses);
+    this.editUserForm.controls[this.childFormNames[1]].patchValue([location]);
   }
 
   private patchEmailControl(values: string[]): void {

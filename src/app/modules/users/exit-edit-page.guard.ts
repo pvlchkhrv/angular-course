@@ -12,6 +12,7 @@ export class ExitEditPageGuard implements CanDeactivate<EditUserPageComponent> {
     component: EditUserPageComponent,
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    console.log('guard is triggered');
     return true;
   }
 }

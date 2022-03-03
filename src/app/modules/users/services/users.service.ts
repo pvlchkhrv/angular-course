@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {IUser} from '../models/user.model';
-import {delay, map, mergeMap, Observable, of, tap} from 'rxjs';
+import {IUser, IUser2} from '../models/user.model';
+import {delay, map, Observable} from 'rxjs';
+import {HttpService} from '../../../api/http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import {delay, map, mergeMap, Observable, of, tap} from 'rxjs';
 
 export class UsersService {
 
-  constructor() {
+  constructor(private http: HttpService) {
   }
 
   public users: IUser[] = [
@@ -62,24 +63,24 @@ export class UsersService {
       email: 'dog@gmail.com',
       addresses: []
     },
-  ]
+  ];
 
-  public getUsers(): Observable<IUser[]> {
-    return of(this.users).pipe(delay(1000));
+  public getUsers(): Observable<IUser2[]> {
+    return this.http.users;
   }
 
-  public getUserById(id: number): Observable<IUser> {
-    return this.getUsers().pipe(
+  public getUserById(id: number): Observable<IUser2> {
+    return this.http.users.pipe(
       map(users => users.find(u => u.id === id)),
       delay(500)
     )
   }
 
-  public getUsersOnSearch(value: string): Observable<IUser[]> {
+  public getUsersOnSearch(value: string): Observable<IUser2[]> {
     return this.getUsers()
       .pipe(
         map(users => users.filter(u =>
-          u.firstName.toLowerCase().includes(value) || u.lastName.toLowerCase().includes(value))),
+          u.name.first.toLowerCase().includes(value) || u.name.last.toLowerCase().includes(value))),
       )
   }
 

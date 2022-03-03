@@ -18,11 +18,11 @@ export class MapToCardsService {
   public mapUsersToCards(users: IUser[]): ICard[] {
     return users.map(u => {
       return {
-        id: u.id,
-        title: u.firstName,
-        subtitle: u.company,
-        imgSrc: u.imgSrc,
-        description: `This is ${u.firstName} ${u.lastName} from ${u.company}. He is ${u.gender}.His department is ${u.department}.`
+        id: +u.id.value,
+        title: u.name.first,
+        subtitle: u.name.last,
+        imgSrc: u.picture.medium,
+        description: `This is ${u.name.first} ${u.name.last}. He is ${u.gender}.His age is ${u.dob.age}.`
       }
     });
   }
