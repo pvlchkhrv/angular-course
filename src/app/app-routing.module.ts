@@ -9,10 +9,10 @@ import {RegistrationShellComponent} from "./modules/auth/containers/registration
 import {LoginShellComponent} from "./modules/auth/containers/login-shell/login-shell.component";
 
 const routes: Routes = [
-  // {path: 'users', component: UsersPageComponent},
-  // {path: 'add-user', component: AddUserPageComponent},
-  // {path: 'edit-user/:id', component: EditUserPageComponent, canDeactivate:[ExitEditPageGuard]},
-  // {path: 'vehicles', component: VehiclesPageComponent},
+  {path: 'users', component: UsersPageComponent},
+  {path: 'add-user', component: AddUserPageComponent},
+  {path: 'edit-user/:id', component: EditUserPageComponent, canDeactivate:[ExitEditPageGuard]},
+  {path: 'vehicles', component: VehiclesPageComponent},
   // {path: '', redirectTo: 'users', pathMatch: 'full'},
   {path: 'registration', component: RegistrationShellComponent},
   {path: 'login', component: LoginShellComponent},

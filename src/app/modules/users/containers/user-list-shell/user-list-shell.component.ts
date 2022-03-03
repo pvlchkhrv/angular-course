@@ -32,7 +32,6 @@ export class UserListShellComponent implements OnInit {
     this.appService.showLoader();
     this.users$ = this.usersService.getUsers();
     this.users$.subscribe(users => this.appService.hideLoader());
-
     this.usersAsCards$ = this.users$.pipe(
       map(users => this.mapToCardsService.mapUsersToCards(users)),
     );

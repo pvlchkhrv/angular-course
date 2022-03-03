@@ -135,24 +135,11 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
   // }
 
   private get firstNameAndLastNameCombined$(): Observable<string[]> {
-    // return this.editUserForm.controls[this.childFormNames[0]].get('firstName').valueChanges
-    //   .pipe(
-    //     mergeMap(firstNameValue =>
-    //       this.editUserForm.controls[this.childFormNames[0]].get('lastName').valueChanges
-    //         .pipe(map(lastNameValue => firstNameValue + lastNameValue))
-    //     )
-    //   )
-    // return merge(
-    //   this.editUserForm.controls[this.childFormNames[0]].get('firstName').valueChanges,
-    //   this.editUserForm.controls[this.childFormNames[0]].get('lastName').valueChanges
-    // )
-
     return combineLatest([
         this.editUserForm.controls[this.childFormNames[0]].get('firstName').valueChanges,
         this.editUserForm.controls[this.childFormNames[0]].get('lastName').valueChanges
       ]
     )
-
   }
 
   private prefillFormGroup(user: IUser): void {
