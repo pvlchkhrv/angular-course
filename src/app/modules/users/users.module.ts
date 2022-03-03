@@ -17,6 +17,7 @@ import { UserAddressComponent } from './components/user-address/user-address.com
 import { EditUserShellComponent } from './containers/edit-user-shell/edit-user-shell.component';
 import { UserSearchComponent } from './components/user-search/user-search.component';
 import {MatIconModule} from '@angular/material/icon';
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatRadioModule,
     ReactiveFormsModule,
     MatIconModule,
+    MatPaginatorModule,
   ],
   providers: [FormValidationService],
   exports: [UserListShellComponent, AddUserShellComponent, EditUserShellComponent]

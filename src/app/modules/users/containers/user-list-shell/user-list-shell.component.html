@@ -1,7 +1,12 @@
 <div class="container">
   <app-user-search (valueChanged)="onSearch($event)"></app-user-search>
-  <app-user-list [usersAsCards]="usersAsCards$ | async"
+  <app-user-list *ngIf="usersPerPage$ | async as userAsCards"
+                 [usersAsCards]="userAsCards"
                  [favourites]="favourites$ | async"
   ></app-user-list>
-  <app-paginator></app-paginator>
+  <mat-paginator [length]="(users$ | async)?.length"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10]"
+                 aria-label="Select page">
+  </mat-paginator>
 </div>

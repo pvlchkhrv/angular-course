@@ -4,15 +4,14 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {CardComponent} from './components/card/card.component';
 import {MatIconModule} from '@angular/material/icon';
-import { FavouritesListComponent } from './components/favourites-list/favourites-list.component';
+import {FavouritesListComponent} from './components/favourites-list/favourites-list.component';
 import {RouterModule} from "@angular/router";
-import { ModalComponent } from './components/modal/modal.component';
+import {ModalComponent} from './components/modal/modal.component';
 import {MatDialogModule} from "@angular/material/dialog";
-import { PaginatorComponent } from './components/paginator/paginator.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
-  declarations: [CardComponent, FavouritesListComponent, ModalComponent, PaginatorComponent],
+  declarations: [CardComponent, FavouritesListComponent, ModalComponent],
   imports: [
     CommonModule,
     MatCardModule,
@@ -22,6 +21,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatDialogModule,
     MatPaginatorModule
   ],
-  exports: [MatButtonModule, CardComponent, FavouritesListComponent, PaginatorComponent]
+  exports: [MatButtonModule, CardComponent, FavouritesListComponent]
 })
-export class SharedModule { }
+export class SharedModule {
+}

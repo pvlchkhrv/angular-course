@@ -21,7 +21,7 @@ export class MapToCardsService {
         id: +u.id.value,
         title: u.name.first,
         subtitle: u.name.last,
-        imgSrc: u.picture.medium,
+        imgSrc: u.picture.large,
         description: `This is ${u.name.first} ${u.name.last}. He is ${u.gender}.His age is ${u.dob.age}.`
       }
     });
