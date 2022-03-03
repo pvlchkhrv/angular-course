@@ -20,7 +20,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
+import {AuthModule} from "./modules/auth/auth.module";
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    AuthModule,
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
