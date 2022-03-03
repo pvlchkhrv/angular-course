@@ -1,25 +1,25 @@
 import {ILocation} from "./address.model";
 
 export interface IUser {
-  "gender": string,
+  "gender": string;
   "name": {
-    "title": string,
-    "first": string,
-    "last": string
+    "title": string;
+    "first": string;
+    "last": string;
   },
-  "location": ILocation,
-  "email": "brad.gibson@example.com",
+  "location": ILocation;
+  "email": string;
   "dob": {
-    "date": "1993-07-20T09:44:18.674Z",
-    "age": 26
+    "date": string;
+    "age": number;
   },
   "picture": {
-    "large": "https://randomuser.me/api/portraits/men/75.jpg",
-    "medium": "https://randomuser.me/api/portraits/med/men/75.jpg",
-    "thumbnail": "https://randomuser.me/api/portraits/thumb/men/75.jpg"
+    "large": string;
+    "medium": string;
+    "thumbnail": string;
   },
   "id": {
-    "name": "CPR",
-    "value": "160982-7765"
+    "name": string;
+    "value": string;
   },
 }

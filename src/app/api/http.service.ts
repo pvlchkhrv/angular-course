@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {catchError, map, Observable, tap, throwError} from 'rxjs';
 
 const BASE_URL = 'https://randomuser.me/api/';
+const configUri = '?results=20&inc=gender,name,location,email,dob,picture';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +13,11 @@ export class HttpService {
   constructor(private http: HttpClient) {
   }
 
-  public get(uri: string, data: any = null, options: any = null): Observable<any> {
+  public get(uri: string, options: any = null): Observable<any> {
     const path: string = BASE_URL + uri;
-
     return this.http
       .get(path, options)
-      .pipe(catchError(this.handleError.bind(this)));
+      // .pipe(catchError(this.handleError.bind(this)));
   }
 
   public post(uri: string, data: any = null, options: any = null): Observable<any> {

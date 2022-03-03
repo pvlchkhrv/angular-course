@@ -4,7 +4,7 @@ import {ICard} from '../../../shared/models/card.model';
 import {FavouritesService} from '../../../shared/services/favourites.service';
 import {IUser} from '../../models/user.model';
 import {MapToCardsService} from '../../../shared/services/mapToCards.service';
-import {map, Observable, takeWhile} from 'rxjs';
+import {map, Observable, take} from 'rxjs';
 import {AppServiceService} from '../../../../app-service.service';
 
 @Component({
@@ -12,12 +12,11 @@ import {AppServiceService} from '../../../../app-service.service';
   templateUrl: './user-list-shell.component.html',
   styleUrls: ['./user-list-shell.component.scss'],
 })
-export class UserListShellComponent implements OnInit, OnDestroy {
+export class UserListShellComponent implements OnInit {
   public type: string = 'users';
   public users$: Observable<IUser[]>;
   public usersAsCards$: Observable<ICard[]>;
   public favourites$: Observable<ICard[]>
-  private isComponentActive: boolean = true;
 
   constructor(
     private usersService: UsersService,
@@ -36,25 +35,20 @@ export class UserListShellComponent implements OnInit, OnDestroy {
     );
 
     this.favourites$ = this.favouritesService.getFavourites(this.type);
-    this.favourites$.subscribe(favs => console.log(favs))
 
     this.favouritesService.favouriteAdded
-      .pipe(takeWhile(() => this.isComponentActive))
+      .pipe(take((1)))
       .subscribe(card => {
         this.addToFavourites(card);
         this.favourites$ = this.favouritesService.getFavourites(this.type); // TODO: ask Nikolai and Alex
       });
 
     this.favouritesService.favouriteRemoved
-      .pipe(takeWhile(() => this.isComponentActive))
+      .pipe(take(1))
       .subscribe(cardId => {
         this.removeFromFavourites(cardId);
         this.favourites$ = this.favouritesService.getFavourites(this.type); // TODO: ask Nikolai and Alex
       });
-  }
-
-  public ngOnDestroy() {
-    this.isComponentActive = false;
   }
 
   public addToFavourites(card: ICard): void {
