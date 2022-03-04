@@ -1,12 +1,12 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {UsersService} from '../../services/users.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {IUserQueryParams, UsersService} from '../../services/users.service';
 import {ICard} from '../../../shared/models/card.model';
 import {FavouritesService} from '../../../shared/services/favourites.service';
 import {IUser} from '../../models/user.model';
 import {MapToCardsService} from '../../../shared/services/mapToCards.service';
-import {map, Observable, take, tap} from 'rxjs';
-import {AppServiceService} from '../../../../app-service.service';
+import {map, Observable, take} from 'rxjs';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {Event} from "@angular/router";
 
 @Component({
   selector: 'app-user-list-shell',
@@ -24,19 +24,14 @@ export class UserListShellComponent implements OnInit {
   constructor(
     private usersService: UsersService,
     private favouritesService: FavouritesService,
-    private mapToCardsService: MapToCardsService,
-    private appService: AppServiceService) {
+  ) {
   }
 
   public ngOnInit(): void {
-    this.appService.showLoader();
-    this.users$ = this.usersService.getUsers();
-    this.users$.subscribe(users => this.appService.hideLoader());
-    this.usersAsCards$ = this.users$.pipe(
-      map(users => this.mapToCardsService.mapUsersToCards(users)),
-    );
-
-    this.usersPerPage$ = this.usersAsCards$.pipe(map(users => users.slice(0, 10)));
+    // this.usersAsCards$ = this.usersService.getUsersFromServer()
+      // .pipe(
+      //   map(users => this.mapToCardsService.mapUsersToCards(users)),
+      // );
 
     this.favourites$ = this.favouritesService.getFavourites(this.type);
 
@@ -55,14 +50,14 @@ export class UserListShellComponent implements OnInit {
       });
   }
 
-  public ngAfterViewInit() {
-    this.paginator.page.subscribe(
-      event => {
-        const startIndex = event.pageIndex * event.pageSize;
-        let endIndex = startIndex + event.pageSize;
-        this.usersPerPage$ = this.usersAsCards$.pipe(map(cards => cards.slice(startIndex, endIndex)))
-      }
-    )
+  public onChangePageSize(event: PageEvent) {
+    // const requestOptions: IUserQueryParams = {
+    //   results: event.pageSize,
+    //   page: event.pageIndex + 1
+    // }
+    // this.usersAsCards$ = this.usersService.getUsersFromServer(requestOptions).pipe(
+    //   map(users => this.mapToCardsService.mapUsersToCards(users)),
+    // );
   }
 
   public addToFavourites(card: ICard): void {
@@ -74,11 +69,11 @@ export class UserListShellComponent implements OnInit {
   }
 
   public onSearch(value: string) {
-    this.usersAsCards$ = this.usersService.getUsersOnSearch(value)
-      .pipe(
-        map(users =>
-          this.mapToCardsService.mapUsersToCards(users)
-        )
-      );
+    // this.usersAsCards$ = this.usersService.getUsersOnSearch(value)
+    //   .pipe(
+    //     map(users =>
+    //       this.mapToCardsService.mapUsersToCards(users)
+    //     )
+    //   );
   }
 }

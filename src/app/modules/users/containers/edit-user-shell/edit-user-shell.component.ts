@@ -117,10 +117,10 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
   }
 
   public onEditUserClick(): void {
-    if (this.checkIsValid()) {
-      this.usersService.editUser(this.mapFormDataToUserInterface());
-      this.router.navigate(['/users']);
-    }
+    // if (this.checkIsValid()) {
+    //   this.usersService.editUser(this.mapFormDataToUserInterface());
+    //   this.router.navigate(['/users']);
+    // }
   }
 
   isFormDirty() {

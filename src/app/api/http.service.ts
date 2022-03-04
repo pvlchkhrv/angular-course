@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
+import {catchError, Observable, throwError} from 'rxjs';
 
 const BASE_URL = 'https://randomuser.me/api/';
 
@@ -16,7 +16,7 @@ export class HttpService {
     const path: string = BASE_URL + uri;
     return this.http
       .get(path, options)
-      // .pipe(catchError(this.handleError.bind(this)));
+      .pipe(catchError(this.handleError.bind(this)));
   }
 
   public post(uri: string, data: any = null, options: any = null): Observable<any> {
@@ -29,7 +29,7 @@ export class HttpService {
       )
   }
 
-  private handleError (err: HttpErrorResponse | ErrorEvent | any): any {
+  private handleError(err: HttpErrorResponse | ErrorEvent | any): Observable<never> {
     let message: string;
     let status: number;
     if (err.error instanceof ErrorEvent) {

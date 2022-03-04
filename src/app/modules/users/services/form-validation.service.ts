@@ -29,7 +29,7 @@ export class FormValidationService {
   }
 
   private getUsersEmails(): Observable<string[]> {
-    return this.usersService.getUsers()
+    return this.usersService.getUsersFromServer()
       .pipe(
         take(1),
         map(users => users.map(user => user.email)),

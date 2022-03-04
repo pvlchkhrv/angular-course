@@ -1,5 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AppServiceService} from '../../../app-service.service';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 
 @Component({
@@ -8,9 +7,8 @@ import {Observable} from 'rxjs';
   styleUrls: ['./progress-bar.component.scss']
 })
 export class ProgressBarComponent implements OnInit {
-  public isLoaderShown$: Observable<boolean> = this.appService.isLoaderShown$;
 
-  constructor(private appService: AppServiceService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
