@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {ICard} from '../../../shared/models/card.model';
 
 @Component({
@@ -8,6 +8,6 @@ import {ICard} from '../../../shared/models/card.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserListComponent {
-  @Input() public usersAsCards: ICard[];
+  @Input() public usersCards: ICard[];
   @Input() public favourites: ICard[];
 }

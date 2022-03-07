@@ -16,19 +16,11 @@ export class MapToCardsService {
   constructor() {
   }
 
-  public mapUsersToCards(users: IUser[] | IUser): ICard[] {
-    if (!Array.isArray(users)) {
-      return [{
-        id: 121221,
-        title: 'u.name.first',
-        subtitle: 'u.name.last',
-        imgSrc: 'u.picture.large',
-        description: `This is . He is .His age is .`
-      }]
-    }
+  public mapUsersToCards(users: IUser[]): ICard[] {
     return users.map(u => {
       return {
         id: +u.id.value,
+        type: 'users',
         title: u.name.first,
         subtitle: u.name.last,
         imgSrc: u.picture.large,
@@ -41,6 +33,7 @@ export class MapToCardsService {
     return vehicles.map(v => {
       return {
         id: v.id,
+        type: 'vehicles',
         title: v.name,
         subtitle: v.number,
         imgSrc: v.imgSrc,

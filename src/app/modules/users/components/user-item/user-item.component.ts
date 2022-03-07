@@ -7,7 +7,7 @@ import {ICard} from '../../../shared/models/card.model';
   styleUrls: ['./user-item.component.scss']
 })
 export class UserItemComponent implements OnInit {
-  @Input() public userAsCard: ICard;
+  @Input() public userCard: ICard;
 
   constructor() {
   }

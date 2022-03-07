@@ -1,35 +1,49 @@
-import {EventEmitter, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ICard} from '../models/card.model';
-import {Observable, of} from 'rxjs';
+import {combineLatestWith, map, Observable, of, Subject} from 'rxjs';
+import {IFavourites} from '../models/IFavourites.model';
+
+export type FavouriteTypes = 'users' | 'vehicles';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class FavouritesService {
-  public favourites: ICard[] = [];
-  public favouriteAdded = new EventEmitter<ICard>();
-  public favouriteRemoved = new EventEmitter<number>();
+  private favouriteAddedSubject = new Subject<ICard>();
+  public favouriteAddedAction$ = this.favouriteAddedSubject.asObservable();
 
-  constructor() {
-  }
+  private favouriteRemovedSubject = new Subject<ICard>();
+  public favouriteRemovedAction$ = this.favouriteRemovedSubject.asObservable();
 
-  public addToFavourites(card: ICard, type: string): void {
-    if (!this.favourites[type]) {
-      this.favourites[type] = [card];
-    } else {
-      !this.favourites[type].some(fav => fav.id === card.id) && this.favourites[type].push(card);
-    }
-  }
+  public favourites$: Observable<IFavourites> = of({users: [], vehicles: []} as IFavourites);
 
-  public removeFromFavourites(cardId: number, type: string) {
-    this.favourites[type] = this.favourites[type].filter(fav => fav.id !== cardId);
-  }
+  public favouritesWithAdded$: Observable<IFavourites> = this.favouriteAddedAction$.pipe(
+    combineLatestWith(this.favourites$)
+  ).pipe(
+    map(([card, favourites]) => {
+      const isDuplicated = favourites[card.type].some(f => card.id === f.id)
+      if (!isDuplicated) {
+        favourites[card.type] = [...favourites[card.type], card]
+      }
+      return favourites;
+    })
+  );
 
-  public getFavourites(type: string): Observable<ICard[]> {
-    if (this.favourites[type]) {
-      return of(this.favourites[type]);
-    }
-    return of(this.favourites);
-  }
+  public favouritesAfterRemove$: Observable<IFavourites> = this.favouriteRemovedAction$.pipe(
+    combineLatestWith(this.favourites$)
+  ).pipe(
+    map(([card, favourites]) => {
+      favourites[card.type] = favourites[card.type].filter(f => f.id !== +card.id);
+      return favourites;
+    })
+  );
+
+  public addToFavourites(card: ICard): void {
+    this.favouriteAddedSubject.next(card);
+  };
+
+  public removeFromFavourites(card): void {
+    this.favouriteRemovedSubject.next(card);
+  };
 }

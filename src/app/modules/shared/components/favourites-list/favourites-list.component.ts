@@ -14,7 +14,7 @@ export class FavouritesListComponent {
   constructor(private favouriteService: FavouritesService) {
   }
 
-  handleRemoveFromFavourites(cardId: number) {
-    this.favouriteService.favouriteRemoved.emit(cardId);
+  public onRemove(card: ICard): void {
+    this.favouriteService.removeFromFavourites(card);
   }
 }

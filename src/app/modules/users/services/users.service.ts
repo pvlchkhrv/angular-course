@@ -29,8 +29,6 @@ export class UsersService {
   private pageFeatureChangedSubject = new BehaviorSubject<number>(10);
   public pageFeatureChangedAction$ = this.pageFeatureChangedSubject.asObservable();
 
-  private addedUsers$: Observable<IUser[]> = from([]);
-
   public users$ = this.getUsersFromServer();
 
   public usersWithAdded$ = this.userAddedAction$.pipe(
@@ -44,10 +42,8 @@ export class UsersService {
   ).pipe(
     tap(console.log),
     map(([value, users]) => users.filter(u =>
-        u.name.first.toLowerCase().includes(value) || u.name.last.toLowerCase().includes(value)),
+      u.name.first.toLowerCase().includes(value) || u.name.last.toLowerCase().includes(value)),
     ),
-    tap(console.log)
-
   )
 
   public selectedUser$ = this.userSelectedAction$.pipe(
@@ -76,7 +72,6 @@ export class UsersService {
     return this.httpService
       .get('', {params: queryParams})
       .pipe(
-        tap(data => console.log('http get users req', data)),
         shareReplay(1),
       );
   }
@@ -112,11 +107,11 @@ export class UsersService {
     this.userUpdatedSubject.next(userModified);
   }
 
-  public selectUser(userId: string) {
+  public selectUser(userId: string): void {
     this.userSelectedSubject.next(userId);
   }
 
-  public searchUser(value: string) {
+  public searchUser(value: string): void {
     this.userSearchedSubject.next(value);
   }
 

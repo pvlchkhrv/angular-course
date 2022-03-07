@@ -11,7 +11,7 @@ export class VehicleService {
   constructor() {
   }
 
-  public vehicles: IVehicle[] = [
+  private vehicles: IVehicle[] = [
     {
       id: 1,
       name: 'VW',
@@ -38,8 +38,6 @@ export class VehicleService {
     }
   ]
 
-  public getVehicles(): Observable<IVehicle[]> {
-    return of(this.vehicles);
-  }
+  public vehicles$ = of(this.vehicles);
 
 }

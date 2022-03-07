@@ -1,8 +1,7 @@
 <div class="content">
   <div class="items">
-    <app-user-item *ngFor="let userAsCard of usersAsCards"
-                   [userAsCard]="userAsCard"
+    <app-user-item *ngFor="let userCard of usersCards"
+                   [userCard]="userCard"
     ></app-user-item>
   </div>
-  <app-favourites [favourites]="favourites"></app-favourites>
 </div>

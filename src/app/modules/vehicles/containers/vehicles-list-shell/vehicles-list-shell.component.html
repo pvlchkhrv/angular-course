@@ -1,5 +1,5 @@
 <div class="container">
-  <app-vehicles-list [vehicles]="vehiclesAsCards$ | async"
-                     [favourites]="favourites$ | async"
-  ></app-vehicles-list>
+  <app-vehicles-list [vehicles]="vehiclesCards$ | async"></app-vehicles-list>
+
+  <app-favourites [favourites]="favourites$ | async"></app-favourites>
 </div>

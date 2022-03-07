@@ -10,20 +10,21 @@ import {ActivatedRoute, Router} from "@angular/router";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class CardComponent implements OnInit{
+export class CardComponent {
   @Input() public card: ICard;
-  @Output() private onAddToFavouritesClick = new EventEmitter();
+  @Output() private onAddToFavouritesClick = new EventEmitter<ICard>();
 
-  constructor(private favouriteService: FavouritesService, private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private favouriteService: FavouritesService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
-  public ngOnInit(): void {
-  }
-
-  handleEditUserButtonCLick() {
-    this.router.navigate(['/edit-user', this.card.id], { relativeTo: this.activatedRoute})
+  public handleEditUserButtonCLick(): void {
+    this.router.navigate(['/edit-user', this.card.id], {relativeTo: this.activatedRoute})
   }
 
   public handleAddToFavouritesClick(): void {
-    this.favouriteService.favouriteAdded.emit(this.card);
+    this.favouriteService.addToFavourites(this.card);
   }
 }
