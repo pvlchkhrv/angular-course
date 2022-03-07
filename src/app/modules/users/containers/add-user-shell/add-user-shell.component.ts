@@ -40,9 +40,9 @@ export class AddUserShellComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    if (this.checkIsValid()) {
-      this.userService.addUser(this.mapFormDataToUserInterface());
-      this.router.navigate(['/users']);
-    }
+    // if (this.checkIsValid()) {
+    //   this.userService.addUser(this.mapFormDataToUserInterface());
+    //   this.router.navigate(['/users']);
+    // }
   }
 }

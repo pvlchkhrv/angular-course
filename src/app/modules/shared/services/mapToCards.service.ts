@@ -5,6 +5,7 @@ import {map, Observable} from 'rxjs';
 import {IUser} from '../../users/models/user.model';
 import {VehicleService} from '../../vehicles/services/vehicles.service';
 import {IVehicle} from '../../vehicles/models/vehicle.model';
+import {ILocation} from '../../users/models/address.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,19 @@ import {IVehicle} from '../../vehicles/models/vehicle.model';
 
 export class MapToCardsService {
 
-  constructor(private userService: UsersService, private vehicleService: VehicleService) {
+  constructor() {
   }
 
-  public mapUsersToCards(users: IUser[]): ICard[] {
+  public mapUsersToCards(users: IUser[] | IUser): ICard[] {
+    if (!Array.isArray(users)) {
+      return [{
+        id: 121221,
+        title: 'u.name.first',
+        subtitle: 'u.name.last',
+        imgSrc: 'u.picture.large',
+        description: `This is . He is .His age is .`
+      }]
+    }
     return users.map(u => {
       return {
         id: +u.id.value,

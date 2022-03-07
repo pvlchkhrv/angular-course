@@ -40,7 +40,7 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
       .subscribe(params => {
         this.id = +params['id'];
 
-        this.user$ = this.usersService.getUserById(this.id);
+        this.user$ = this.usersService.getUserById(this.id.toString());
 
         this.user$
           .pipe(takeWhile(() => this.isComponentActive))
