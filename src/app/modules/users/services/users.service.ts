@@ -1,23 +1,8 @@
 import {Injectable} from '@angular/core';
 import {IUser} from '../models/user.model';
-import {
-  BehaviorSubject,
-  combineLatestWith,
-  map,
-  merge,
-  mergeWith,
-  Observable,
-  scan,
-  shareReplay,
-  Subject,
-  switchMap,
-  tap
-} from 'rxjs';
+import {BehaviorSubject, combineLatestWith, from, map, Observable, shareReplay, Subject, take, tap} from 'rxjs';
 import {HttpService} from '../../../api/http.service';
 import {IUsersDataResponse} from "../models/usersDataResponse.model";
-import {MapToCardsService} from "../../shared/services/mapToCards.service";
-import {ICard} from '../../shared/models/card.model';
-import {combineLatest} from 'rxjs/operators';
 
 export interface IUserQueryParams {
   results: number,
@@ -29,7 +14,7 @@ export interface IUserQueryParams {
 })
 
 export class UsersService {
-  private usersAddedSubject = new Subject<IUser>();
+  private usersAddedSubject = new BehaviorSubject<IUser>(null);
   public userAddedAction$ = this.usersAddedSubject.asObservable();
 
   private userSelectedSubject = new Subject<string>();
@@ -38,15 +23,53 @@ export class UsersService {
   private userUpdatedSubject = new Subject<IUser>();
   public userUpdatedAction$ = this.userUpdatedSubject.asObservable();
 
-  private pageFeatureChangedSubject = new BehaviorSubject<number>(10);
-  public pageFeatureChangedAction = this.pageFeatureChangedSubject.asObservable();
+  private userSearchedSubject = new Subject<string>();
+  public userSearchedAction$ = this.userSearchedSubject.asObservable();
 
+  private pageFeatureChangedSubject = new BehaviorSubject<number>(10);
+  public pageFeatureChangedAction$ = this.pageFeatureChangedSubject.asObservable();
+
+  private addedUsers$: Observable<IUser[]> = from([]);
+
+  public users$ = this.getUsersFromServer();
+
+  public usersWithAdded$ = this.userAddedAction$.pipe(
+    combineLatestWith(this.users$)
+  ).pipe(
+    map(([user, users]) => user ? [user, ...users] : users)
+  )
+
+  public filteredUsers$ = this.userSearchedAction$.pipe(
+    combineLatestWith(this.users$)
+  ).pipe(
+    tap(console.log),
+    map(([value, users]) => users.filter(u =>
+        u.name.first.toLowerCase().includes(value) || u.name.last.toLowerCase().includes(value)),
+    ),
+    tap(console.log)
+
+  )
+
+  public selectedUser$ = this.userSelectedAction$.pipe(
+    combineLatestWith(this.users$)
+  ).pipe(
+    map(([userId, users]) => users.find(u => u.id.value === userId))
+  )
+
+  public usersWithEdit$ = this.userUpdatedAction$.pipe(
+    combineLatestWith(this.users$)
+  ).pipe(
+    map(([user, users]) => users.map(u => {
+      if (u.id.value === user.id.value) {
+        return user;
+      }
+      return u;
+    }))
+  )
 
   constructor(
-    private httpService: HttpService,
-    private mapToCardsService: MapToCardsService) {
+    private httpService: HttpService) {
   }
-
 
   public getUsersDataFromServer(results: number = 50, page: number = 1): Observable<IUsersDataResponse> {
     const queryParams = {results, inc: 'gender,name,location,email,dob,picture,id', seed: 'users', page: page};
@@ -85,8 +108,16 @@ export class UsersService {
     this.usersAddedSubject.next(user);
   }
 
-  public editUser2(userModified: IUser): void {
+  public editUser(userModified: IUser): void {
     this.userUpdatedSubject.next(userModified);
+  }
+
+  public selectUser(userId: string) {
+    this.userSelectedSubject.next(userId);
+  }
+
+  public searchUser(value: string) {
+    this.userSearchedSubject.next(value);
   }
 
   // public editUser(userModified: ICard): void {

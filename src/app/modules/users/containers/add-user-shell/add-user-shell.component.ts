@@ -3,6 +3,7 @@ import {UsersService} from '../../services/users.service';
 import {Router} from '@angular/router';
 import {FormArray, FormGroup} from '@angular/forms';
 import {IUser} from '../../models/user.model';
+import {ICard} from "../../../shared/models/card.model";
 
 type FormType = 'userDetails' | 'addresses';
 
@@ -35,8 +36,8 @@ export class AddUserShellComponent implements OnInit {
     }
   }
 
-  mapFormDataToUserInterface(): IUser {
-    return {...this.addUserForm.value.userDetails, addresses: this.addUserForm.value.addresses};
+  mapFormDataToUserCardInterface(): void{
+    // return {...this.addUserForm.value.userDetails, addresses: this.addUserForm.value.addresses};
   }
 
   public onSubmit(): void {

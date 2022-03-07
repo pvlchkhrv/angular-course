@@ -1,43 +1,42 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {IUserQueryParams, UsersService} from '../../services/users.service';
 import {ICard} from '../../../shared/models/card.model';
 import {FavouritesService} from '../../../shared/services/favourites.service';
-import {IUser} from '../../models/user.model';
 import {MapToCardsService} from '../../../shared/services/mapToCards.service';
-import {combineLatestWith, map, Observable, Subscription, take} from 'rxjs';
+import {map, merge, Observable, Subscription, take, tap} from 'rxjs';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import {Event} from "@angular/router";
-import {combineLatest} from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-list-shell',
   templateUrl: './user-list-shell.component.html',
   styleUrls: ['./user-list-shell.component.scss'],
 })
-export class UserListShellComponent implements OnInit, AfterViewInit {
+export class UserListShellComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) public paginator: MatPaginator;
   public type: string = 'users';
   private subs = new Subscription();
+
   public userCards$: Observable<ICard[]>;
-  public userCardsPerPage$: Observable<ICard[]>;
   public favourites$: Observable<ICard[]>;
+  public userCardsPerPage$: Observable<ICard[]>
+
 
   constructor(
     private usersService: UsersService,
     private favouritesService: FavouritesService,
     private mapService: MapToCardsService
-  ) {
-  }
+  ) {}
 
   public ngOnInit(): void {
 
-    this.userCards$ = this.usersService.getUsersFromServer().pipe(
-      take(1),
-      map(users => this.mapService.mapUsersToCards(users)
-      ));
-
-    this.userCardsPerPage$ = this.userCards$.pipe(
-      map(users => users.slice(0, 10))
+   this.userCardsPerPage$ = merge(
+      this.usersService.users$,
+      this.usersService.usersWithAdded$,
+      this.usersService.usersWithEdit$,
+      this.usersService.filteredUsers$
+    ).pipe(
+      tap(value => console.log(value)),
+      map(users => this.mapService.mapUsersToCards(users).slice(0, 10))
     )
 
     this.favourites$ = this.favouritesService.getFavourites(this.type);
@@ -57,10 +56,14 @@ export class UserListShellComponent implements OnInit, AfterViewInit {
       });
   }
 
-  ngAfterViewInit() {
+  public ngAfterViewInit() {
     this.subs.add(this.paginator.page.subscribe( event =>
       this.handlePaginatorChanges(event)
     ));
+  }
+
+  public ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
   public handlePaginatorChanges(event: PageEvent) {
@@ -83,11 +86,7 @@ export class UserListShellComponent implements OnInit, AfterViewInit {
   }
 
   public onSearch(value: string) {
-    // this.usersAsCards$ = this.usersService.getUsersOnSearch(value)
-    //   .pipe(
-    //     map(users =>
-    //       this.mapToCardsService.mapUsersToCards(users)
-    //     )
-    //   );
+    console.log(value)
+    this.usersService.searchUser(value);
   }
 }
