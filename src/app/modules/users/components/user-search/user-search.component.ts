@@ -13,10 +13,6 @@ export class UserSearchComponent implements OnInit, OnDestroy {
   public userSearchControl: FormControl;
   private sub: Subscription;
 
-
-  constructor() {
-  }
-
   public ngOnInit(): void {
     this.userSearchControl = new FormControl('');
     this.sub = this.getValue().subscribe(value => this.valueChanged.emit(value));

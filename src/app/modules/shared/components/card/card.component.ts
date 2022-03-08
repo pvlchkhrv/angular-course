@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {ICard} from '../../models/card.model';
-import {FavouritesService} from "../../services/favourites.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {FavouritesService} from '../../services/favourites.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -25,6 +25,7 @@ export class CardComponent {
   }
 
   public handleAddToFavouritesClick(): void {
+    console.log(this.card)
     this.favouriteService.addToFavourites(this.card);
   }
 }

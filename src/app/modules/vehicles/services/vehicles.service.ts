@@ -13,7 +13,7 @@ export class VehicleService {
 
   private vehicles: IVehicle[] = [
     {
-      id: 1,
+      id: '1',
       name: 'VW',
       color: 'grey',
       releaseYear: 2012,
@@ -21,7 +21,7 @@ export class VehicleService {
       imgSrc: '../../assets/images/cars/img.jpg'
     },
     {
-      id: 2,
+      id: '2',
       name: 'BMW',
       color: 'black',
       releaseYear: 2021,
@@ -29,7 +29,7 @@ export class VehicleService {
       imgSrc: '../../assets/images/cars/img_2.jpg'
     },
     {
-      id: 3,
+      id: '3',
       name: 'Audi',
       color: 'white',
       releaseYear: 2012,

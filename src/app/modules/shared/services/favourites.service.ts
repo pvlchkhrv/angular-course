@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ICard} from '../models/card.model';
 import {combineLatestWith, map, Observable, of, Subject} from 'rxjs';
-import {IFavourites} from '../models/IFavourites.model';
+import {IFavourites} from '../models/favourites.model';
 
 export type FavouriteTypes = 'users' | 'vehicles';
 
@@ -34,7 +34,7 @@ export class FavouritesService {
     combineLatestWith(this.favourites$)
   ).pipe(
     map(([card, favourites]) => {
-      favourites[card.type] = favourites[card.type].filter(f => f.id !== +card.id);
+      favourites[card.type] = favourites[card.type].filter(f => f.id !== card.id);
       return favourites;
     })
   );

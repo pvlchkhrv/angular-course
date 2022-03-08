@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {IUser} from '../models/user.model';
-import {BehaviorSubject, combineLatestWith, from, map, Observable, shareReplay, Subject, take, tap} from 'rxjs';
+import {BehaviorSubject, combineLatestWith, map, Observable, shareReplay, Subject, tap} from 'rxjs';
 import {HttpService} from '../../../api/http.service';
-import {IUsersDataResponse} from "../models/usersDataResponse.model";
+import {v4} from 'uuid';
 
 export interface IUserQueryParams {
   results: number,
@@ -29,12 +29,22 @@ export class UsersService {
   private pageFeatureChangedSubject = new BehaviorSubject<number>(10);
   public pageFeatureChangedAction$ = this.pageFeatureChangedSubject.asObservable();
 
-  public users$ = this.getUsersFromServer();
+  public users$ = this.getUsersFromServer().pipe(
+    shareReplay(1)
+  );
 
   public usersWithAdded$ = this.userAddedAction$.pipe(
     combineLatestWith(this.users$)
   ).pipe(
     map(([user, users]) => user ? [user, ...users] : users)
+  )
+
+  public usersWithEdit$ = this.userUpdatedAction$.pipe(
+    combineLatestWith(this.users$)
+  ).pipe(
+    map(([user, users]) => users.map(u =>
+      u.id === user.id ? user : u
+    ))
   )
 
   public filteredUsers$ = this.userSearchedAction$.pipe(
@@ -49,45 +59,34 @@ export class UsersService {
   public selectedUser$ = this.userSelectedAction$.pipe(
     combineLatestWith(this.users$)
   ).pipe(
-    map(([userId, users]) => users.find(u => u.id.value === userId))
-  )
-
-  public usersWithEdit$ = this.userUpdatedAction$.pipe(
-    combineLatestWith(this.users$)
-  ).pipe(
-    map(([user, users]) => users.map(u => {
-      if (u.id.value === user.id.value) {
-        return user;
-      }
-      return u;
-    }))
+    map(([userId, users]) => users.find(u => u.id === userId))
   )
 
   constructor(
     private httpService: HttpService) {
   }
 
-  public getUsersDataFromServer(results: number = 50, page: number = 1): Observable<IUsersDataResponse> {
-    const queryParams = {results, inc: 'gender,name,location,email,dob,picture,id', seed: 'users', page: page};
+  public getUsersFromServer(options?: IUserQueryParams): Observable<IUser[]> {
+    const queryParams = {
+      results: options ? options.results : 50,
+      inc: 'gender,name,location,email,dob,picture',
+      seed: 'users',
+      page: options ? options.page : 1
+    }
+
     return this.httpService
       .get('', {params: queryParams})
       .pipe(
-        shareReplay(1),
-      );
-  }
-
-  public getUsersFromServer(options?: IUserQueryParams): Observable<IUser[]> {
-    return this.getUsersDataFromServer(options?.results, options?.page)
-      .pipe(
-        map(response => [...response['results']])
-      );
+        map(response =>
+          response['results'].map(user => ({id: v4(), ...user}))),
+      )
   }
 
   public getUserById(id: string): Observable<IUser> {
     return this.getUsersFromServer()
       .pipe(
         map(users =>
-          users.find(user => user.id.value === id))
+          users.find(user => user.id === id))
       )
   }
 
@@ -114,14 +113,4 @@ export class UsersService {
   public searchUser(value: string): void {
     this.userSearchedSubject.next(value);
   }
-
-  // public editUser(userModified: ICard): void {
-  //   this.users = this.users.map(u => {
-  //     if (userModified.id === u.id) {
-  //       return userModified;
-  //     }
-  //     return u;
-  //   });
-  // }
-
 }

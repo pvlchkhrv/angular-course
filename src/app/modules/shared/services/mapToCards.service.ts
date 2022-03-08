@@ -1,11 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ICard} from '../models/card.model';
-import {UsersService} from '../../users/services/users.service';
-import {map, Observable} from 'rxjs';
 import {IUser} from '../../users/models/user.model';
-import {VehicleService} from '../../vehicles/services/vehicles.service';
 import {IVehicle} from '../../vehicles/models/vehicle.model';
-import {ILocation} from '../../users/models/address.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,13 +15,13 @@ export class MapToCardsService {
   public mapUsersToCards(users: IUser[]): ICard[] {
     return users.map(u => {
       return {
-        id: +u.id.value,
+        id: u.id,
         type: 'users',
         title: u.name.first,
         subtitle: u.name.last,
         imgSrc: u.picture.large,
-        description: `This is ${u.name.first} ${u.name.last}. He is ${u.gender}.His age is ${u.dob.age}.`
-      }
+        description: `This is ${u.name.first} ${u.name.last}. He is ${u.gender}. His age is ${u.dob.age}.`
+      } as ICard
     });
   }
 
@@ -41,5 +37,4 @@ export class MapToCardsService {
       }
     });
   }
-
 }

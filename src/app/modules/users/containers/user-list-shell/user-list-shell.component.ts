@@ -3,8 +3,9 @@ import {IUserQueryParams, UsersService} from '../../services/users.service';
 import {ICard} from '../../../shared/models/card.model';
 import {FavouritesService, FavouriteTypes} from '../../../shared/services/favourites.service';
 import {MapToCardsService} from '../../../shared/services/mapToCards.service';
-import {map, merge, Observable, take} from 'rxjs';
+import {map, merge, Observable, take, tap} from 'rxjs';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {IUser} from '../../models/user.model';
 
 @Component({
   selector: 'app-user-list-shell',
@@ -34,7 +35,8 @@ export class UserListShellComponent implements OnInit {
       this.usersService.usersWithEdit$,
       this.usersService.filteredUsers$
     ).pipe(
-      map(users => this.mapService.mapUsersToCards(users).slice(0, 10))
+      map((users: IUser[]) => this.mapService.mapUsersToCards(users).slice(0, 10)),
+      tap(users => console.log(users))
     )
 
     this.favourites$ = merge(
@@ -51,7 +53,7 @@ export class UserListShellComponent implements OnInit {
     )
   }
 
-  public onPaginationChange(event: PageEvent) { // TODO change to declarative (replace with subject)
+  public onPaginationChange(event: PageEvent): void { // TODO change to declarative (replace with subject)
     const requestOptions: IUserQueryParams = {
       results: event.pageSize,
       page: event.pageIndex + 1

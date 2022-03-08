@@ -1,6 +1,7 @@
 import {ILocation} from "./address.model";
 
 export interface IUser {
+  "id": string;
   "gender": string;
   "name": {
     "title": string;
@@ -17,9 +18,5 @@ export interface IUser {
     "large": string;
     "medium": string;
     "thumbnail": string;
-  },
-  "id": {
-    "name": string;
-    "value": string;
   },
 }

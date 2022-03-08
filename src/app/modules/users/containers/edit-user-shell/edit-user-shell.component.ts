@@ -5,7 +5,6 @@ import {FormArray, FormGroup} from '@angular/forms';
 import {IUser} from '../../models/user.model';
 import {UsersService} from '../../services/users.service';
 import {MatDialog} from "@angular/material/dialog";
-import {ILocation} from '../../models/address.model';
 
 type FormType = 'userDetails' | 'addresses';
 
@@ -19,11 +18,8 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
   public childFormNames: FormType[] = ['userDetails', 'addresses'];
   public editUserForm: FormGroup;
   public user$: Observable<IUser>;
-  private id: number;
+  private id: string;
   private isComponentActive = true;
-
-
-
 
   constructor(
     private route: ActivatedRoute,
@@ -38,7 +34,7 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
     this.route.params
       .pipe(takeWhile(() => this.isComponentActive))
       .subscribe(params => {
-        this.id = +params['id'];
+        this.id = params['id'];
 
         this.user$ = this.usersService.getUserById(this.id.toString());
 
@@ -106,10 +102,7 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
         "medium": "https://randomuser.me/api/portraits/med/men/75.jpg",
         "thumbnail": "https://randomuser.me/api/portraits/thumb/men/75.jpg"
       },
-      "id": {
-        "name": "CPR",
-        "value": "160982-7765"
-      },
+      "id": this.id
 
     }
     // const mappedUser = {...this.editUserForm.value.userDetails, addresses: this.editUserForm.value.addresses};
