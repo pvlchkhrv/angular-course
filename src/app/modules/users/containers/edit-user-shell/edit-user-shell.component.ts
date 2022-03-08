@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {combineLatest, Observable, takeWhile} from 'rxjs';
+import {combineLatest, Observable, take, takeWhile} from 'rxjs';
 import {FormArray, FormGroup} from '@angular/forms';
 import {IUser} from '../../models/user.model';
 import {UsersService} from '../../services/users.service';
@@ -32,11 +32,11 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
     this.editUserForm = new FormGroup({});
 
     this.route.params
-      .pipe(takeWhile(() => this.isComponentActive))
+      .pipe(take(1))
       .subscribe(params => {
         this.id = params['id'];
 
-        this.user$ = this.usersService.getUserById(this.id.toString());
+        this.user$ = this.usersService.getUserById(this.id);
 
         this.user$
           .pipe(takeWhile(() => this.isComponentActive))
@@ -103,7 +103,6 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
         "thumbnail": "https://randomuser.me/api/portraits/thumb/men/75.jpg"
       },
       "id": this.id
-
     }
     // const mappedUser = {...this.editUserForm.value.userDetails, addresses: this.editUserForm.value.addresses};
     // return mappedUser

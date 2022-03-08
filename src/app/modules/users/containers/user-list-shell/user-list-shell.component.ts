@@ -36,7 +36,6 @@ export class UserListShellComponent implements OnInit {
       this.usersService.filteredUsers$
     ).pipe(
       map((users: IUser[]) => this.mapService.mapUsersToCards(users).slice(0, 10)),
-      tap(users => console.log(users))
     )
 
     this.favourites$ = merge(

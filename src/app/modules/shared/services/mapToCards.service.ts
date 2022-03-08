@@ -13,16 +13,14 @@ export class MapToCardsService {
   }
 
   public mapUsersToCards(users: IUser[]): ICard[] {
-    return users.map(u => {
-      return {
+    return users.map(u => ({
         id: u.id,
         type: 'users',
         title: u.name.first,
         subtitle: u.name.last,
         imgSrc: u.picture.large,
         description: `This is ${u.name.first} ${u.name.last}. He is ${u.gender}. His age is ${u.dob.age}.`
-      } as ICard
-    });
+    }));
   }
 
   public mapVehiclesToCards(vehicles: IVehicle[]): ICard[] {
@@ -37,4 +35,5 @@ export class MapToCardsService {
       }
     });
   }
+
 }

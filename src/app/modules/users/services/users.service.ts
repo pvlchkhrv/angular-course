@@ -3,6 +3,7 @@ import {IUser} from '../models/user.model';
 import {BehaviorSubject, combineLatestWith, map, Observable, shareReplay, Subject, tap} from 'rxjs';
 import {HttpService} from '../../../api/http.service';
 import {v4} from 'uuid';
+import {FormGroup} from '@angular/forms';
 
 export interface IUserQueryParams {
   results: number,
@@ -99,6 +100,7 @@ export class UsersService {
   }
 
   public addUser(user: IUser): void {
+    console.log(user)
     this.usersAddedSubject.next(user);
   }
 
@@ -112,5 +114,47 @@ export class UsersService {
 
   public searchUser(value: string): void {
     this.userSearchedSubject.next(value);
+  }
+
+  public mapFormDataToUserInterface(formGroup: FormGroup, userId: string): IUser {
+    const formData = formGroup.value;
+    console.log('map', formData)
+    return {
+      "id": userId,
+      "gender": formData.userDetails.gender,
+      "name": {
+        "title": formData.userDetails.gender === 'male' ? 'Mr.' : 'Mrs',
+        "first": formData.userDetails.firstName,
+        "last": formData.userDetails.lastName
+      },
+      "location": {
+        "street": {
+          "number": 0,
+          "name": formData.addresses[0].addressLine,
+        },
+        "city": formData.addresses[0].city,
+        "state": '',
+        "country": '',
+        "postcode": formData.addresses.zip,
+        "coordinates": {
+          "latitude": '',
+          "longitude": ''
+        },
+        "timezone": {
+          "offset": '',
+          "description": ''
+        }
+      },
+      "email": formData.userDetails.email,
+      "dob": {
+        "date": "1993-07-20T09:44:18.674Z",
+        "age": 26
+      },
+      "picture": {
+        "large": formData.userDetails.imgSrc,
+        "medium": "https://randomuser.me/api/portraits/med/men/75.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/75.jpg"
+      },
+    }
   }
 }
