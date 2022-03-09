@@ -3,13 +3,13 @@
   <h2>Edit Info</h2>
 
   <app-user-details
-    (onUserDetailsReady)="handleOnFormReady($event, childFormNames[0])"
+    (onUserDetailsReady)="onFormReady($event, childFormNames[0])"
   ></app-user-details>
 
   <app-user-addresses
-    (onUserAddressesReady)="handleOnFormReady($event, childFormNames[1])"
+    (onUserAddressesReady)="onFormReady($event, childFormNames[1])"
     [formArrayName]="childFormNames[1]"
   ></app-user-addresses>
 
-  <button type="button" mat-raised-button color="primary" (click)="onEditUserClick()">Edit User</button>
+  <button type="button" mat-raised-button color="primary" (click)="onSubmit()">Edit User</button>
 </form>

@@ -1,1 +1,7 @@
-<p>registration works!</p>
+<div class="registration-form-container" [formGroup]="parentForm">
+  <mat-form-field appearance="fill">
+    <mat-label>User Name</mat-label>
+    <input matInput formControlName="userName">
+  </mat-form-field>
+  <app-pass-group [parentGroup]="parentForm"></app-pass-group>
+</div>

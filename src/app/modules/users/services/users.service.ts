@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {IUser} from '../models/user.model';
-import {BehaviorSubject, combineLatestWith, map, Observable, shareReplay, Subject, tap} from 'rxjs';
+import {BehaviorSubject, combineLatestWith, delay, map, Observable, shareReplay, Subject, tap} from 'rxjs';
 import {HttpService} from '../../../api/http.service';
 import {v4} from 'uuid';
 import {FormGroup} from '@angular/forms';
@@ -84,8 +84,9 @@ export class UsersService {
   }
 
   public getUserById(id: string): Observable<IUser> {
-    return this.getUsersFromServer()
+    return this.users$
       .pipe(
+        delay(100),
         map(users =>
           users.find(user => user.id === id))
       )

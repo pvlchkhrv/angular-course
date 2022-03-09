@@ -32,8 +32,7 @@ export class AddUserShellComponent {
     }
   }
 
-  public mapFormDataToUser(): IUser {
-    console.log(this.addUserForm.value)
+  private mapFormDataToUser(): IUser {
     return this.userService.mapFormDataToUserInterface(this.addUserForm, v4());
   }
 

@@ -9,9 +9,14 @@ import {RouterModule} from "@angular/router";
 import {ModalComponent} from './components/modal/modal.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { EmailControlComponent } from './components/email-control/email-control.component';
+import { PassGroupComponent } from './components/pass-group/pass-group.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
-  declarations: [CardComponent, FavouritesListComponent, ModalComponent],
+  declarations: [CardComponent, FavouritesListComponent, ModalComponent, EmailControlComponent, PassGroupComponent],
   imports: [
     CommonModule,
     MatCardModule,
@@ -19,9 +24,12 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatIconModule,
     RouterModule,
     MatDialogModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule
   ],
-  exports: [MatButtonModule, CardComponent, FavouritesListComponent]
+  exports: [MatButtonModule, CardComponent, FavouritesListComponent, PassGroupComponent]
 })
 export class SharedModule {
 }
