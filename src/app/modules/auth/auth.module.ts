@@ -9,8 +9,6 @@ import {MatInputModule} from "@angular/material/input";
 import {SharedModule} from "../shared/shared.module";
 import {ReactiveFormsModule} from "@angular/forms";
 
-
-
 @NgModule({
   declarations: [
     RegistrationShellComponent,

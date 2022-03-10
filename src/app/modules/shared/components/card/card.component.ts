@@ -21,11 +21,10 @@ export class CardComponent {
   ) {}
 
   public handleEditUserButtonCLick(): void {
-    this.router.navigate(['/edit-user', this.card.id], {relativeTo: this.activatedRoute})
+    this.router.navigate(['edit-user', this.card.id], {relativeTo: this.activatedRoute})
   }
 
   public handleAddToFavouritesClick(): void {
-    console.log(this.card)
     this.favouriteService.addToFavourites(this.card);
   }
 }

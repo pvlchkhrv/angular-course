@@ -1,26 +1,42 @@
-import {AfterContentChecked, AfterViewInit, Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-registration-shell',
   templateUrl: './registration-shell.component.html',
   styleUrls: ['./registration-shell.component.scss']
 })
-export class RegistrationShellComponent implements OnInit, AfterContentChecked {
+export class RegistrationShellComponent implements OnInit {
   public registrationForm: FormGroup;
-  constructor(private formBuilder: FormBuilder) { }
 
-
-  public ngOnInit(): void {
-    this.registrationForm = this.formBuilder.group({});
+  constructor(private formBuilder: FormBuilder,
+              private authService: AuthService) {
   }
 
-  ngAfterContentChecked() {
-    this.registrationForm.valueChanges.subscribe(value => console.log(value))
+  public ngOnInit(): void {
+    this.registrationForm = this.formBuilder.group({
+      userName: new FormControl(''),
+      passGroup: new FormGroup({}),
+    });
+
+    // this.registrationForm.valueChanges.subscribe(value => console.log(value))
+  }
+
+  private checkFormValidity(): boolean {
+    if (this.registrationForm.valid) {
+      return true;
+    } else {
+      this.registrationForm.markAllAsTouched();
+      return false;
+    }
   }
 
   public onSubmit() {
-
+    const {userName, passGroup} = this.registrationForm.value;
+    if (this.checkFormValidity()) {
+      this.authService.register(userName, passGroup.password)
+    }
   }
 
 }

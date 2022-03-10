@@ -1,1 +1,4 @@
-<app-login></app-login>
+<form class="login">
+  <app-login (loginFormReady)="onChildFormIsReady($event)"></app-login>
+  <button type="button" mat-raised-button color="primary" (click)="onSubmit()">Sign In</button>
+</form>

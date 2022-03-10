@@ -86,7 +86,7 @@ export class UsersService {
   public getUserById(id: string): Observable<IUser> {
     return this.users$
       .pipe(
-        delay(100),
+        delay(200),
         map(users =>
           users.find(user => user.id === id))
       )

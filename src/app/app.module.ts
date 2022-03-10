@@ -6,9 +6,7 @@ import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
 import {UsersModule} from './modules/users/users.module';
 import {ToolbarComponent} from './core/components/toolbar/toolbar.component';
-import {TabGroupComponent} from './core/components/tab-group/tab-group.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ProgressBarComponent} from './modules/shared/components/progress-bar/progress-bar.component';
 import {VehiclesModule} from './modules/vehicles/vehicles.module';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -18,13 +16,13 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {HttpClientModule} from '@angular/common/http';
 import {AuthModule} from "./modules/auth/auth.module";
+import {ShellComponent} from './core/containers/shell/shell.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
-    TabGroupComponent,
-    ProgressBarComponent,
+    ShellComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +37,7 @@ import {AuthModule} from "./modules/auth/auth.module";
     MatTabsModule,
     MatButtonModule,
     MatProgressBarModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -7,6 +7,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  @Output() public loginFormReady = new EventEmitter<FormGroup>();
+
   public loginForm: FormGroup = new FormGroup({
     userName: new FormControl('', [
       Validators.required,
@@ -22,7 +24,8 @@ export class LoginComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    this.loginFormReady.emit(this.loginForm);
   }
 
 }

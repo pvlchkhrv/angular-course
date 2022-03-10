@@ -1,6 +1,4 @@
 <div class="wrapper">
-  <app-toolbar></app-toolbar>
-  <app-tab-group></app-tab-group>
-<!--  <app-progress-bar></app-progress-bar>-->
+  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
   <router-outlet></router-outlet>
 </div>

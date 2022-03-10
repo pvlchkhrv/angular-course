@@ -5,15 +5,15 @@ import {MatCardModule} from '@angular/material/card';
 import {CardComponent} from './components/card/card.component';
 import {MatIconModule} from '@angular/material/icon';
 import {FavouritesListComponent} from './components/favourites-list/favourites-list.component';
-import {RouterModule} from "@angular/router";
+import {RouterModule} from '@angular/router';
 import {ModalComponent} from './components/modal/modal.component';
-import {MatDialogModule} from "@angular/material/dialog";
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { EmailControlComponent } from './components/email-control/email-control.component';
 import { PassGroupComponent } from './components/pass-group/pass-group.component';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {ReactiveFormsModule} from "@angular/forms";
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [CardComponent, FavouritesListComponent, ModalComponent, EmailControlComponent, PassGroupComponent],

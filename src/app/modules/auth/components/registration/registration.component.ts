@@ -10,10 +10,10 @@ export class RegistrationComponent implements OnInit {
   @Input() public parentForm: FormGroup;
   public userNameControl = new FormControl('', [Validators.required]);
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor() { }
 
   public ngOnInit(): void {
-    this.parentForm.addControl('userName', this.userNameControl);
+    this.parentForm.setControl('userName',this.userNameControl);
   }
 
   public validatePasswordConfirmation(formGroup: FormGroup): ValidationErrors | null {

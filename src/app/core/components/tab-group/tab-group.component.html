@@ -1,5 +1,5 @@
 <nav mat-tab-nav-bar mat-align-tabs="center" [backgroundColor]="background">
   <a mat-tab-link *ngFor="let link of links"
      (click)="onLinkClick(link)"
-     [active]="activeLink == link"> {{link}}</a>
+     [active]="activeLink === link"> {{link}}</a>
 </nav>

@@ -2,11 +2,13 @@ import {Injectable} from '@angular/core';
 import {map, Observable, take} from 'rxjs';
 import {ValidationErrors} from '@angular/forms';
 import {UsersService} from './users.service';
+import {UsersStorageAdapterService} from '../../../services/storage/adapters/users-storage-adapter.service';
 
 @Injectable()
 export class FormValidationService {
 
-  constructor(private usersService: UsersService) {
+  constructor(private usersService: UsersService,
+              private userStorageAdapter: UsersStorageAdapterService) {
   }
 
   public validateUniqueEmailAsync(userEmail: string): Observable<ValidationErrors> {
@@ -20,6 +22,25 @@ export class FormValidationService {
       if (email) {
         observer.next({
           isEmailExist: true
+        });
+      } else {
+        observer.next(null);
+      }
+      observer.complete();
+    });
+  }
+
+  public validateUniqueUserNameAsync(userName: string): Observable<ValidationErrors> {
+    let name: string;
+
+    const users = this.userStorageAdapter.getUsers();
+    if (users[userName]) {
+      name = userName;
+    }
+    return new Observable<ValidationErrors>((observer) => {
+      if (name) {
+        observer.next({
+          isNameExist: true
         });
       } else {
         observer.next(null);

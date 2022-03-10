@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-pass-group',
@@ -8,18 +8,17 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, 
 })
 export class PassGroupComponent implements OnInit {
   @Input() public parentGroup: FormGroup;
-  public passGroup: FormGroup;
+  public passGroup: FormGroup = this.formBuilder.group({
+    password: new FormControl('', [Validators.required, Validators.min(6), Validators.max(15)]),
+    confirmPassword: new FormControl('', [Validators.required, Validators.min(6), Validators.max(15)])
+  }, this.validatePasswordConfirmation);
 
   constructor(private formBuilder: FormBuilder) {
+
   }
 
   ngOnInit(): void {
-    this.passGroup = this.formBuilder.group({
-      password: new FormControl('', [Validators.required, Validators.min(6), Validators.max(15)]),
-      confirmPassword: new FormControl('', [Validators.required, Validators.min(6), Validators.max(15)])
-    }, this.validatePasswordConfirmation);
-
-    this.parentGroup.addControl('passGroup', this.passGroup);
+    this.parentGroup.setControl('passGroup', this.passGroup);
   }
 
   private validatePasswordConfirmation(control: AbstractControl): ValidationErrors | null {

@@ -4,7 +4,10 @@
     <mat-icon>menu</mat-icon>
   </button>
 
-  <div class="auth-nav">
+  <span>{{title}}</span>
+
+  <div class="auth-nav" *ngIf="!isLoggedIn">
+
     <button mat-button
             class="button login"
             [routerLink]="'/login'"
@@ -18,5 +21,11 @@
       Registration
     </button>
   </div>
+
+  <button *ngIf="isLoggedIn" mat-button
+          class="button logout"
+          [routerLink]="'/login'">
+    LogOut
+  </button>
 
 </mat-toolbar>
