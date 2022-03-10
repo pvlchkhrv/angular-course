@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AuthService} from '../../../modules/auth/services/auth.service';
 import {NavigationStart, Router, RouterEvent} from '@angular/router';
 
@@ -7,8 +7,8 @@ import {NavigationStart, Router, RouterEvent} from '@angular/router';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent {
-  public title: string = '';
+export class ToolbarComponent implements OnInit{
+  public title: string;
   public isLoggedIn: boolean = this.authService.isLoggedIn();
   public userName: string = this.authService.currentUser?.userName;
 
@@ -19,6 +19,10 @@ export class ToolbarComponent {
     router.events.subscribe((routerEvent: RouterEvent) => {
       this.setTitle(routerEvent);
     });
+  }
+
+  ngOnInit() {
+    console.log(this.isLoggedIn)
   }
 
   setTitle(routerEvent: RouterEvent) {
