@@ -1,4 +1,6 @@
 <form class="registration">
   <app-registration [parentForm]="registrationForm"></app-registration>
   <button type="button" mat-raised-button color="primary" (click)="onSubmit()">Sign Up</button>
+
 </form>
+<span>Already have an account? <a [routerLink]="'/login'">Sign in!</a></span>

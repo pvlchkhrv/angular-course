@@ -4,26 +4,9 @@
     <mat-icon>menu</mat-icon>
   </button>
 
-  <span>{{title}}</span>
-  <span>{{setUserName()}}</span>
+  <span>{{userName}}</span>
 
-  <div class="auth-nav" *ngIf="!isLoggedIn">
-
-    <button mat-button
-            class="button login"
-            [routerLink]="'/login'"
-    >
-      Login
-    </button>
-
-    <button mat-button
-            class="button registration"
-            [routerLink]="'/registration'">
-      Registration
-    </button>
-  </div>
-
-  <button *ngIf="isLoggedIn" mat-button
+  <button mat-button
           class="button logout"
           [routerLink]="'/login'">
     LogOut

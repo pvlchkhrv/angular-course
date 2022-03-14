@@ -28,7 +28,6 @@ export class EditUserShellComponent implements OnInit, OnDestroy {
     private usersService: UsersService,
     private router: Router,
     public modal: MatDialog) {
-
   }
 
   public ngOnInit(): void {

@@ -19,10 +19,10 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {UsersRoutingModule} from './users-routing.module';
 import {CommonModule} from '@angular/common';
-import {MatTabsModule} from '@angular/material/tabs';
-import {UsersShellComponent} from './containers/users-shell/users-shell.component';
-import {TabGroupComponent} from '../../core/components/tab-group/tab-group.component';
-
+import { UserDetailsShellComponent } from './containers/user-details-shell/user-details-shell.component';
+import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
+import { ContactsComponent } from './components/contacts/contacts.component';
+import { CompanyInfoComponent } from './components/company-info/company-info.component';
 @NgModule({
   declarations: [
     UserListShellComponent,
@@ -33,9 +33,11 @@ import {TabGroupComponent} from '../../core/components/tab-group/tab-group.compo
     UserAddressesComponent,
     UserAddressComponent,
     EditUserShellComponent,
+    UserDetailsShellComponent,
+    PersonalInfoComponent,
+    ContactsComponent,
+    CompanyInfoComponent,
     UserSearchComponent,
-    UsersShellComponent,
-    TabGroupComponent,
   ],
   imports: [
     SharedModule,
@@ -48,7 +50,6 @@ import {TabGroupComponent} from '../../core/components/tab-group/tab-group.compo
     MatPaginatorModule,
     UsersRoutingModule,
     CommonModule,
-    MatTabsModule
   ],
   providers: [FormValidationService],
   exports: [UserListShellComponent, AddUserShellComponent, EditUserShellComponent]

@@ -2,3 +2,5 @@
   <app-login (loginFormReady)="onChildFormIsReady($event)"></app-login>
   <button type="button" mat-raised-button color="primary" (click)="onSubmit()">Sign In</button>
 </form>
+
+<span>Don`t have an account? <a [routerLink]="'/registration'">Sign Up!</a></span>
