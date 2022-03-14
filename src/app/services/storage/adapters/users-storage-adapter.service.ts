@@ -43,7 +43,7 @@ export class UsersStorageAdapterService {
     this.storageService.setItem('currentUser', user);
   }
 
-  public getCurrentUser() {
-    this.storageService.getItem('currentUser');
+  public getCurrentUser(): IRegisteredUser {
+   return this.storageService.getItem('currentUser');
   }
 }

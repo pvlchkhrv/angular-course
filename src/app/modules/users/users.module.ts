@@ -9,7 +9,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 import {ReactiveFormsModule} from '@angular/forms';
 import {UserItemComponent} from './components/user-item/user-item.component';
-import {UserDetailsFormComponent} from './components/user-details/user-details-form.component';
+import {UserDetailsFormComponent} from './components/user-details-form/user-details-form.component';
 import {FormValidationService} from "./services/form-validation.service";
 import {UserAddressesComponent} from './components/user-addresses/user-addresses.component';
 import {UserAddressComponent} from './components/user-address/user-address.component';
