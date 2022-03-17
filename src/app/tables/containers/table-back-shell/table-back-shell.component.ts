@@ -33,7 +33,8 @@ export class TableBackShellComponent implements OnInit {
   constructor(
     private tablesService: TablesService,
     private loaderService: LoaderService
-  ) {}
+  ) {
+  }
 
   public ngOnInit(): void {
     this.setUsersPerPage();
@@ -54,20 +55,9 @@ export class TableBackShellComponent implements OnInit {
         map(([users, sort]) =>
           this.tablesService.sortUsers(users, sort)
         ),
+        tap(console.log),
         tap(() => this.loaderService.hideLoader())
       )
-
-    // this.usersPerPage$ = combineLatest([
-    //   this.paginationChangedAction$,
-    //   this.sortChangedAction$
-    // ]).pipe(
-    //   switchMap(([{pageIndex, pageSize}, sort]) => [
-    //     this.tablesService.fetchUsers({page: pageIndex, results: pageSize}),
-    //     sort
-    //   ]),
-    //   map(([users, sort]) => this.tablesService.sortUsers(users, sort))
-    // )
-
   }
 
   public onPaginationChange(pageEvent: PageEvent): void {
