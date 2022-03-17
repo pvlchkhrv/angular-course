@@ -1,32 +1,36 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {RegistrationShellComponent} from './modules/auth/containers/registration-shell/registration-shell.component';
-import {LoginShellComponent} from './modules/auth/containers/login-shell/login-shell.component';
-import {ShellComponent} from './core/containers/shell/shell.component';
-import {AuthGuard} from './modules/auth/services/auth.guard';
-import {VehiclesListShellComponent} from './modules/vehicles/containers/vehicles-list-shell/vehicles-list-shell.component';
-import {UserListShellComponent} from "./modules/users/containers/user-list-shell/user-list-shell.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { RegistrationShellComponent } from './auth/containers/registration-shell/registration-shell.component';
+import { LoginShellComponent } from './auth/containers/login-shell/login-shell.component';
+import { ShellComponent } from './core/containers/shell/shell.component';
+import { AuthGuard } from './auth/services/auth.guard';
+import { VehiclesListShellComponent } from './vehicles/containers/vehicles-list-shell/vehicles-list-shell.component';
+import { TablesShellComponent } from './tables/containers/tables-shell/tables-shell.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginShellComponent},
   {path: 'registration', component: RegistrationShellComponent},
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
   {
     path: '',
     component: ShellComponent,
     canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
     children: [
       {
         path: 'users',
-        canLoad: [AuthGuard],
-        loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule),
+        loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
       },
       {
         path: 'vehicles',
-        canLoad: [AuthGuard],
         component: VehiclesListShellComponent,
-        loadChildren: () => import('./modules/vehicles/vehicles.module').then(m => m.VehiclesModule),
+        loadChildren: () => import('./vehicles/vehicles.module').then(m => m.VehiclesModule),
       },
+      {
+        path: 'tables',
+        component: TablesShellComponent,
+        loadChildren: () => import('./tables/tables.module').then(m => m.TablesModule),
+      },
+      {path: '', pathMatch: 'full', redirectTo: '/users'}
     ]
   }
 ];

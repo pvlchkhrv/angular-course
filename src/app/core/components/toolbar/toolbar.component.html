@@ -1,8 +1,18 @@
 <mat-toolbar color="primary" class="toolbar">
 
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+  <button
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with menu icon"
+    [matMenuTriggerFor]="menu"
+  >
     <mat-icon>menu</mat-icon>
   </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item [routerLink]="'/users'">Users</button>
+    <button mat-menu-item [routerLink]="'/vehicles'">Vehicles</button>
+    <button mat-menu-item [routerLink]="'/tables'">Tables</button>
+  </mat-menu>
 
   <span>{{userName}}</span>
 

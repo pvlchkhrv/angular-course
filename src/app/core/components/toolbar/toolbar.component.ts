@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../../modules/auth/services/auth.service';
+import {AuthService} from '../../../auth/services/auth.service';
 import {NavigationEnd, Router, RouterEvent} from '@angular/router';
-import {UsersStorageAdapterService} from '../../../services/storage/adapters/users-storage-adapter.service';
+import {UsersStorageAdapterService} from '../../services/storage/adapters/users-storage-adapter.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -10,7 +10,7 @@ import {UsersStorageAdapterService} from '../../../services/storage/adapters/use
 })
 export class ToolbarComponent {
   public title: string;
-  public isLoggedIn:boolean;
+  public isLoggedIn: boolean;
   public userName: string;
 
   constructor(
