@@ -54,7 +54,7 @@ export class TableBackShellComponent implements OnInit {
         map(([users, sort]) =>
           this.tablesService.sortUsers(users, sort)
         ),
-        finalize(() => this.loaderService.hideLoader())
+        tap(() => this.loaderService.hideLoader())
       )
 
     // this.usersPerPage$ = combineLatest([
