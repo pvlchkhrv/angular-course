@@ -11,7 +11,7 @@ import {MatTableDataSource} from '@angular/material/table';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class TableBackComponent implements OnInit {
+export class TableBackComponent {
   @Input() public users: IUser$[];
   @Input() public totalSize: number;
   @Input() public pageSize: number;
@@ -21,13 +21,8 @@ export class TableBackComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  public dataSource: MatTableDataSource<IUser$>;
   public displayedColumns: string[] = ['name', 'email', 'age', 'address', 'department'];
   public pageSizeOptions: number[] = [5, 10, 15];
-
-  public ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.users);
-  }
 
   public onPaginationChange(pageEvent: PageEvent): void {
     this.pageEventEmitted.emit(pageEvent);
