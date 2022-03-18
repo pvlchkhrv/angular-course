@@ -5,18 +5,21 @@ import { TablesShellComponent } from './containers/tables-shell/tables-shell.com
 import { TableFrontShellComponent } from './containers/table-front-shell/table-front-shell.component';
 import { TableBackShellComponent } from './containers/table-back-shell/table-back-shell.component';
 import { TableComponent } from './components/table/table.component';
+import { TableBackComponent } from './components/table-back/table-back.component';
+import {TablesRoutingModule} from './tables-routing.module';
 
 @NgModule({
   declarations: [
     TablesShellComponent,
     TableFrontShellComponent,
     TableBackShellComponent,
-    TableComponent
+    TableComponent,
+    TableBackComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    // TablesLazyServiceModule
+    TablesRoutingModule
   ],
   exports: [
     TablesShellComponent

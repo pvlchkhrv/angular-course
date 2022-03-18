@@ -3,6 +3,7 @@
          matSort
          matSortDisableClear
          [dataSource]="dataSource"
+         (matSortChange)="onSortChange($event)"
   >
     <!-- Name Column -->
     <ng-container matColumnDef="name">
@@ -38,10 +39,11 @@
     <tr mat-row *matRowDef="let user; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="pageSizeOptions"
-                 [pageSize]="initialPageSize"
-  >
-
-  </mat-paginator>
+  <mat-paginator
+    [pageSizeOptions]="pageSizeOptions"
+    [pageSize]="pageSize"
+    [length]="totalSize"
+    (page)="onPaginationChange($event)"
+  ></mat-paginator>
 
 </div>

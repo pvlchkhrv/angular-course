@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-tables-shell',
@@ -6,4 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./tables-shell.component.scss']
 })
 
-export class TablesShellComponent {}
+export class TablesShellComponent implements OnInit{
+
+  ngOnInit() {
+
+  }
+}

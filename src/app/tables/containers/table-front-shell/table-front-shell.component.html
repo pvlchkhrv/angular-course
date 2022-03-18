@@ -1,8 +1,5 @@
 <h2>Front Implementation</h2>
 <app-table
-  [users]="usersPerPage$ | async"
-  [totalSize]="totalSize$ | async"
-  [pageSize]="(paginationChangedAction$ | async)?.pageSize"
-  (pageEventEmitted)="onPaginationChange($event)"
-  (sortEventEmitted)="onSortChange($event)"
+           [users]="users$ | async"
+           [totalSize]="totalSize$ | async"
 ></app-table>

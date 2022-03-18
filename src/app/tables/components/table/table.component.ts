@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { IUser$ } from '../../../core/models/user.interface';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
+import {AfterViewInit, ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
+import {IUser$} from '../../../core/models/user.interface';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatSort, Sort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-table',
@@ -10,24 +11,41 @@ import { MatSort, Sort } from '@angular/material/sort';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class TableComponent {
+export class TableComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public users: IUser$[];
   @Input() public totalSize: number;
   @Input() public pageSize: number;
 
-  @Output() public pageEventEmitted = new EventEmitter<PageEvent>();
-  @Output() public sortEventEmitted = new EventEmitter<Sort>();
-
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  public dataSource: MatTableDataSource<IUser$>;
   public displayedColumns: string[] = ['name', 'email', 'age', 'address', 'department'];
   public pageSizeOptions: number[] = [5, 10, 15];
+  public initialPageSize: number = 10;
 
-  public onPaginationChange(pageEvent: PageEvent): void {
-    this.pageEventEmitted.emit(pageEvent);
+  public ngOnInit(): void {
+    this.dataSource = new MatTableDataSource();
   }
 
-  public onSortChange(sort: Sort) {
-    this.sortEventEmitted.emit(sort);
+  public ngOnChanges(): void {
+    if (this.users) {
+      this.dataSource.data = this.users
+    }
+  }
+
+  public ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator
+
+    this.dataSource.sortingDataAccessor = this.changeSortingDataAccessor;
+  }
+
+  private changeSortingDataAccessor(item, property) {
+    switch (property) {
+      case 'age': return item.dob.age;
+      case 'name': return item.name.last;
+      default: return item[property];
+    }
   }
 }

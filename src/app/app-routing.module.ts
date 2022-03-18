@@ -5,7 +5,6 @@ import { LoginShellComponent } from './auth/containers/login-shell/login-shell.c
 import { ShellComponent } from './core/containers/shell/shell.component';
 import { AuthGuard } from './auth/services/auth.guard';
 import { VehiclesListShellComponent } from './vehicles/containers/vehicles-list-shell/vehicles-list-shell.component';
-import { TablesShellComponent } from './tables/containers/tables-shell/tables-shell.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginShellComponent},
@@ -13,8 +12,8 @@ const appRoutes: Routes = [
   {
     path: '',
     component: ShellComponent,
-    canActivate: [AuthGuard],
-    canLoad: [AuthGuard],
+    // canActivate: [AuthGuard],
+    // canLoad: [AuthGuard],
     children: [
       {
         path: 'users',
@@ -27,7 +26,6 @@ const appRoutes: Routes = [
       },
       {
         path: 'tables',
-        component: TablesShellComponent,
         loadChildren: () => import('./tables/tables.module').then(m => m.TablesModule),
       },
       {path: '', pathMatch: 'full', redirectTo: '/users'}
