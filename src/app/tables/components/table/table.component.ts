@@ -1,5 +1,5 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
-import {IUser$} from '../../../core/models/user.interface';
+import {IUser} from '../../../core/models/user.interface';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -12,14 +12,14 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 
 export class TableComponent implements OnInit, AfterViewInit, OnChanges {
-  @Input() public users: IUser$[];
+  @Input() public users: IUser[];
   @Input() public totalSize: number;
   @Input() public pageSize: number;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  public dataSource: MatTableDataSource<IUser$>;
+  public dataSource: MatTableDataSource<IUser>;
   public displayedColumns: string[] = ['name', 'email', 'age', 'address', 'department'];
   public pageSizeOptions: number[] = [5, 10, 15];
   public initialPageSize: number = 10;

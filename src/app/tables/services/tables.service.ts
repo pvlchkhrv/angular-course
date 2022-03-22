@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpService } from '../../core/services/http.service';
-import { map, Observable, take } from 'rxjs';
-import { IUser$ } from '../../core/models/user.interface';
-import { Sort } from '@angular/material/sort';
+import {Injectable} from '@angular/core';
+import {HttpService} from '../../core/services/http.service';
+import {map, Observable, take} from 'rxjs';
+import {IUser} from '../../core/models/user.interface';
+import {Sort} from '@angular/material/sort';
 
 export interface IQueryParams {
   results: number,
@@ -14,9 +14,10 @@ export interface IQueryParams {
 })
 export class TablesService {
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) {
+  }
 
-  public fetchUsers(options?: IQueryParams): Observable<IUser$[]> {
+  public fetchUsers(options?: IQueryParams): Observable<IUser[]> {
     const queryParams = {
       results: options?.results ? options.results : 500,
       seed: 'users',
@@ -30,11 +31,11 @@ export class TablesService {
       );
   }
 
-  public sortUsers(users: IUser$[], sort: Sort): IUser$[] {
+  public sortUsers(users: IUser[], sort: Sort): IUser[] {
     if (!sort.active || sort.direction === '') {
       return users;
     }
-    return users.sort((a, b) => {
+    const sortedUsers = users.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'name':
@@ -49,6 +50,8 @@ export class TablesService {
           return 0;
       }
     })
+
+    return [...sortedUsers];
   }
 
   private compare(a: number | string, b: number | string, isAsc: boolean): number {

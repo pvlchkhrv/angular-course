@@ -1,16 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {
-  BehaviorSubject,
-  combineLatest,
-  combineLatestWith,
-  map,
-  Observable,
-  share,
-  switchMap,
-  tap,
-  withLatestFrom
-} from 'rxjs';
-import {IUser$} from '../../../core/models/user.interface';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {BehaviorSubject, map, Observable, share, switchMap, combineLatest, tap, delay, combineLatestWith} from 'rxjs';
+import {IUser} from '../../../core/models/user.interface';
 import {Sort} from '@angular/material/sort';
 import {TablesService} from '../../services/tables.service';
 import {PageEvent} from '@angular/material/paginator';
@@ -26,8 +16,9 @@ interface IPaginationSubject {
   templateUrl: './table-back-shell.component.html',
   styleUrls: ['./table-back-shell.component.scss']
 })
-export class TableBackShellComponent implements OnInit {
-  public users$: Observable<IUser$[]>;
+export class TableBackShellComponent implements OnInit, AfterViewInit {
+  public users$: Observable<IUser[]>;
+  public sortedUsers$: Observable<IUser[]>
   public totalSize$: Observable<number>;
   public isLoading$: Observable<boolean> = this.loaderService.loadingAction$;
 
@@ -47,7 +38,19 @@ export class TableBackShellComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.setUsersPerPage();
+    this.users$ = this.paginationChangedAction$.pipe(
+      switchMap(({pageIndex, pageSize}) =>
+        this.tablesService.fetchUsers({page: pageIndex + 1, results: pageSize})
+      ),
+      share()
+    );
+
+    this.sortedUsers$ = this.sortChangedAction$.pipe(
+      combineLatestWith(this.users$)
+    ).pipe(
+      map(([sort, users]) => this.tablesService.sortUsers(users, sort)),
+      tap(console.log)
+    )
 
     this.totalSize$ = this.tablesService.fetchUsers()
       .pipe(
@@ -55,33 +58,8 @@ export class TableBackShellComponent implements OnInit {
       );
   }
 
-  private setUsersPerPage(): void {
-    this.users$ = combineLatest([
-      this.paginationChangedAction$,
-      this.sortChangedAction$
-    ]).pipe(
-      tap(() => this.loaderService.showLoader()),
-      switchMap(([page, sort]) =>
-        this.tablesService.fetchUsers({page: page.pageIndex, results: page.pageSize})
-          .pipe(
-            map((users) =>
-              this.tablesService.sortUsers(users, sort)
-            ),
-          )
-      ),
-    )
+  ngAfterViewInit() {
 
-
-    this.users$ = this.paginationChangedAction$
-      .pipe(
-        tap(() => this.loaderService.showLoader()),
-        switchMap(page => this.tablesService.fetchUsers({page: page.pageIndex, results: page.pageSize})),
-        combineLatestWith(this.sortChangedAction$),
-        map(([users, sort]) =>
-          this.tablesService.sortUsers(users, sort)
-        ),
-        tap(() => this.loaderService.hideLoader())
-      )
   }
 
   public onPaginationChange(pageEvent: PageEvent): void {

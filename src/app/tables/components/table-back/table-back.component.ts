@@ -1,8 +1,7 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {IUser$} from '../../../core/models/user.interface';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {IUser} from '../../../core/models/user.interface';
 import {PageEvent} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-table-back',
@@ -12,7 +11,7 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 
 export class TableBackComponent {
-  @Input() public users: IUser$[];
+  @Input() public users: IUser[];
   @Input() public totalSize: number;
   @Input() public pageSize: number;
 

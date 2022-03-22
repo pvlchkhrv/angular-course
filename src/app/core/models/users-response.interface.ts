@@ -1,7 +1,7 @@
-import { IUser$ } from './user.interface';
+import { IUser } from './user.interface';
 
 export interface IUsersResponse {
-  "results":IUser$[],
+  "results":IUser[],
   "info": {
     "seed": string,
     "results": number,

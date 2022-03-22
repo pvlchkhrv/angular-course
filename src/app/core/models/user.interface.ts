@@ -1,4 +1,4 @@
-export interface IUser$ {
+export interface IUser {
   "gender": string,
   "name": {
     "title": string,

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {map, Observable, share} from 'rxjs';
-import {IUser$} from '../../../core/models/user.interface';
+import {IUser} from '../../../core/models/user.interface';
 import {TablesService} from '../../services/tables.service';
 
 @Component({
@@ -9,7 +9,7 @@ import {TablesService} from '../../services/tables.service';
   styleUrls: ['./table-front-shell.component.scss']
 })
 export class TableFrontShellComponent implements OnInit {
-  public users$: Observable<IUser$[]>;
+  public users$: Observable<IUser[]>;
   public totalSize$: Observable<number>;
 
   constructor(private tablesService: TablesService) {

@@ -5,7 +5,7 @@
 </div>
 
 <app-table-back
-  [users]="users$ | async"
+  [users]="sortedUsers$ | async"
   [totalSize]="totalSize$ | async"
   [pageSize]="(paginationChangedAction$ | async)?.pageSize"
   (pageEventEmitted)="onPaginationChange($event)"
